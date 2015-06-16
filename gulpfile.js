@@ -15,7 +15,10 @@ var paths = {src: './src', out: './www/'}
 
 //copy bower files to js libs
 gulp.task('bower-requirejs', function () {
-    gulp.src(bowerFiles()).pipe(gulp.dest(paths.out + '/javascripts/vendor'));
+    gulp.src(bowerFiles())
+        .pipe(
+            gulp.dest(paths.out + '/javascripts/vendor')
+        );
     //util.log(bowerFiles());
     var options = {
         baseUrl: 'www',
