@@ -1,3 +1,6 @@
+/**
+ *
+ */
 define([],function(){
     'use strict';
     var Board = function(x,y,rng){

@@ -1,6 +1,11 @@
 define(
     ['THREE'],
     function(THREE){
+        /**
+         * Constructor.
+         * @param canvasElement
+         * @constructor
+         */
         var Game = function(canvasElement) {
             var scene, camera, renderer;
             var geometry, material, mesh;
