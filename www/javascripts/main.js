@@ -115,11 +115,12 @@ define(['THREE', 'GUI', 'RNG', 'fast-simplex-noise', 'game'], function (THREE, d
                     terrain.height,
                     terrain.segments,
                     terrain.segments),*/
-                groundGeometry = new THREE.PlaneGeometry(
+                groundGeometry = new THREE.PlaneBufferGeometry(
                     terrain.width,
                     terrain.height,
                     terrain.width,
                     terrain.height);
+            groundGeometry.verticesNeedUpdate = true;
             var index = 0;
             var noiseGen = new FastSimplexNoise(this);
             for (var i = 0; i <= terrain.width; i++) {
@@ -128,8 +129,8 @@ define(['THREE', 'GUI', 'RNG', 'fast-simplex-noise', 'game'], function (THREE, d
                     //console.log(groundGeometry.vertices[index]);
                     groundGeometry.vertices[index].setZ(noiseGen.get2DNoise(i, j)*255);
                     //randomize z by multiplying by a random between -1 and 1
-                    //groundGeometry.vertices[index].position.z = z * (Math.random() * 2 - 1);
-                        index++;
+                    // groundGeometry.vertices[index].position.z = z * (Math.random() * 2 - 1);
+                    index++;
                 }
             }
             var ground = new THREE.Mesh(groundGeometry, material);
@@ -145,6 +146,7 @@ define(['THREE', 'GUI', 'RNG', 'fast-simplex-noise', 'game'], function (THREE, d
     gui.add(options, 'mapWidth',16,1024);
     gui.add(options, 'mapHeight',16,1024);
     gui.add(options, 'createMap');
+    gui.add(options, 'create3DMap');
     gui.add(options, 'clear');
 
     game.animate();

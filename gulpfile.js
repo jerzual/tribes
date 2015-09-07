@@ -11,17 +11,29 @@ var gulp = require('gulp'),
     jade = require('jade'),
     gulpJade = require('gulp-jade'),
     path = require('path');
+    util = require('gulp-util'),
+    bower = require('gulp-bower');
 
-var paths = {src: './src', out: './www/'}
+var paths = {src: './src', out: './www/'};
 
-//copy bower files to js libs
+/* run a simple bower install
+------------------------------- */
+gulp.task('bower', function() {
+    return bower();
+});
+/*copy bower dependencies to js libs dir
+------------------------------- */
 gulp.task('bower-requirejs', function () {
-    gulp.src(bowerFiles()).pipe(gulp.dest(paths.out + '/javascripts/vendor'));
-    //util.log(bowerFiles());
+    gulp.src(bowerFiles())
+        .pipe(
+            gulp.dest(paths.out + '/javascripts/vendor')
+        );
+    //generate require.js config file
     var options = {
-        baseUrl: 'www',
+        baseUrl: 'js/',
         config: 'www/javascripts/config.js',
-        transitive: true
+        transitive: true,
+        'exclude-dev' : true
     };
 
     bowerRequireJS(options, function (rjsConfigFromBower) {
@@ -29,7 +41,9 @@ gulp.task('bower-requirejs', function () {
         util.log(rjsConfigFromBower);
     });
 });
+
 gulp.task('requirejs', function () {
+    var bowerConfig = require('www/javascripts/config.js');
     rjs({
         baseUrl: 'www/javascripts/',
         name:'main',
@@ -70,6 +84,7 @@ gulp.task('connect', function () {
     });
 });
 
+gulp.task('build', ['html','less', 'uglify']);
 gulp.task('watch', function () {
     gulp.watch([paths.src + '/**/*.html'], ['html']);
     gulp.watch([paths.out + '/**/*.js'], ['uglify']);
