@@ -8,7 +8,8 @@ var gulp = require('gulp'),
     bowerRequireJS = require('bower-requirejs'),
     rename = require('gulp-rename'),
     uglify = require('gulp-uglify'),
-    util = require('gulp-util'),
+    jade = require('jade'),
+    gulpJade = require('gulp-jade'),
     path = require('path');
 
 var paths = {src: './src', out: './www/'}
