@@ -1,6 +1,4 @@
-define(
-    ['THREE'],
-    function(THREE){
+var THREE = require('three');
         /**
          * Constructor.
          * @param canvasElement
@@ -45,5 +43,4 @@ define(
 
             this.scene = scene;
         };
-        return Game;
-    });
+        module.exports = Game;

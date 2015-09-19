@@ -1,20 +1,10 @@
-require.config({
-    baseUrl:'/javascripts',
-    shim: {
-        GUI: {exports: 'dat'},
-        RNG: {exports: 'RNG'},
-        THREE: {exports: 'THREE'},
-        'fast-simplex-noise': {exports: 'FastSimplexNoise'}
-    },
-    paths: {
-        RNG: 'vendor/rng',
-        THREE: 'vendor/three',
-        GUI: 'vendor/dat.gui',
-        'fast-simplex-noise': 'vendor/fast-simplex-noise'
-    },
-    packages: []
-});
-define(['THREE', 'GUI', 'RNG', 'fast-simplex-noise', 'game'], function (THREE, dat, RNG, FastSimplexNoise, Game) {
+
+var THREE = require('three');
+var dat=require('dat-gui');
+var RNG = require('rng-js');
+var FastSimplexNoise = require('fast-simplex-noise');
+var Game=require('./Game');
+function initDom() {
 
     var canvas = document.getElementById('tribes');
     var game = new Game(canvas);
@@ -22,19 +12,19 @@ define(['THREE', 'GUI', 'RNG', 'fast-simplex-noise', 'game'], function (THREE, d
     window.game = game;
 
     var DebugControls = function () {
-        var randomSeed = function(){
+        var randomSeed = function () {
             var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890',
-                rseed ='';
-            for(var i = 0 ; i<8; i++){
+                rseed = '';
+            for (var i = 0; i < 8; i++) {
                 rseed += chars.charAt(Math.floor(Math.random() * chars.length));
             }
             return rseed;
-        }
+        };
 
         this.generate = function () {
             console.log('new rng with seed:' + this.seed);
             game.rng = new RNG(this.seed);
-        }
+        };
 
         this.seed = randomSeed();
         //this.speed = 0.8;
@@ -51,8 +41,10 @@ define(['THREE', 'GUI', 'RNG', 'fast-simplex-noise', 'game'], function (THREE, d
         octaves: 8,
         mapWidth: 32,
         mapHeight: 32,
-        seaLevel:128,
-        random : function(){return game.rng.random()},
+        seaLevel: 128,
+        random: function () {
+            return game.rng.random()
+        },
         //random: DebugControls.prototype.rng.random,
         createMap: function () {
             var canvas = document.createElement('canvas');
@@ -68,26 +60,26 @@ define(['THREE', 'GUI', 'RNG', 'fast-simplex-noise', 'game'], function (THREE, d
                     grid[x][y] = noiseGen.get2DNoise(x, y);
                     //console.log(x + '' + y + ' : ' + grid[x][y])
                     //transforms (-1,1) range given by noiseGen to (0,255)
-                    var shadeOfGrey = Math.floor(255*(grid[x][y] + 1)/2);
+                    var shadeOfGrey = Math.floor(255 * (grid[x][y] + 1) / 2);
 
-                    if(shadeOfGrey < this.seaLevel)
-                        ctx.fillStyle = "rgb("+shadeOfGrey/2+","+shadeOfGrey/2+",128)";
+                    if (shadeOfGrey < this.seaLevel)
+                        ctx.fillStyle = "rgb(" + shadeOfGrey / 2 + "," + shadeOfGrey / 2 + ",128)";
                     else
-                        ctx.fillStyle = "rgb("+shadeOfGrey+","+shadeOfGrey+","+shadeOfGrey+")";
-                    ctx.fillRect (x, y, 1, 1);
+                        ctx.fillStyle = "rgb(" + shadeOfGrey + "," + shadeOfGrey + "," + shadeOfGrey + ")";
+                    ctx.fillRect(x, y, 1, 1);
                 }
             }
 
 
             document.getElementById('map').appendChild(canvas);
         },
-        clear:function(){
+        clear: function () {
             document.getElementById('map').innerHTML = '';
         },
-        create3DMap: function(){
+        create3DMap: function () {
             /**
              * move lighting to init
-            scene.add(news THREE.AmbientLight({
+             scene.add(news THREE.AmbientLight({
                 color: 0x666666
             }));
              */
@@ -95,12 +87,13 @@ define(['THREE', 'GUI', 'RNG', 'fast-simplex-noise', 'game'], function (THREE, d
 //objects in the scene
 //var geometry = new THREE.CubeGeometry(1,1,1);
             var groundMaterial = new THREE.MeshBasicMaterial({
-                    color: 0xccffcc, shading: THREE.FlatShading, side: THREE.DoubleSide, overdraw: true
-                }),material = new THREE.MeshBasicMaterial({color: 0x00ff00, wireframe: true});
+                color: 0xccffcc, shading: THREE.FlatShading, side: THREE.DoubleSide, overdraw: true
+            }), material = new THREE.MeshBasicMaterial({color: 0x00ff00, wireframe: true});
             /*,
-                waterMaterial = new THREE.MeshBasicMaterial({
-                    color: 0xccccff
-                })*/;
+             waterMaterial = new THREE.MeshBasicMaterial({
+             color: 0xccccff
+             })*/
+
 //var cube = new THREE.Mesh( geometry, material );
 //scene.add( cube );
 
@@ -110,11 +103,11 @@ define(['THREE', 'GUI', 'RNG', 'fast-simplex-noise', 'game'], function (THREE, d
                     height: this.mapHeight,
                     segments: 12
                 },
-                /*waterGeometry = new THREE.PlaneGeometry(
-                    terrain.width,
-                    terrain.height,
-                    terrain.segments,
-                    terrain.segments),*/
+            /*waterGeometry = new THREE.PlaneGeometry(
+             terrain.width,
+             terrain.height,
+             terrain.segments,
+             terrain.segments),*/
                 groundGeometry = new THREE.PlaneBufferGeometry(
                     terrain.width,
                     terrain.height,
@@ -127,7 +120,7 @@ define(['THREE', 'GUI', 'RNG', 'fast-simplex-noise', 'game'], function (THREE, d
                 for (var j = 0; j <= terrain.height; j++) {
 
                     //console.log(groundGeometry.vertices[index]);
-                    groundGeometry.vertices[index].setZ(noiseGen.get2DNoise(i, j)*255);
+                    groundGeometry.vertices[index].setZ(noiseGen.get2DNoise(i, j) * 255);
                     //randomize z by multiplying by a random between -1 and 1
                     // groundGeometry.vertices[index].position.z = z * (Math.random() * 2 - 1);
                     index++;
@@ -142,13 +135,16 @@ define(['THREE', 'GUI', 'RNG', 'fast-simplex-noise', 'game'], function (THREE, d
     gui.add(controls, 'generate');
     gui.add(options, 'frequency', -1, 1);
     gui.add(options, 'octaves');
-    gui.add(options, 'seaLevel',0,255);
-    gui.add(options, 'mapWidth',16,1024);
-    gui.add(options, 'mapHeight',16,1024);
+    gui.add(options, 'seaLevel', 0, 255);
+    gui.add(options, 'mapWidth', 16, 1024);
+    gui.add(options, 'mapHeight', 16, 1024);
     gui.add(options, 'createMap');
     gui.add(options, 'create3DMap');
     gui.add(options, 'clear');
 
     game.animate();
     window.game = game;
-});
+
+};
+
+document.addEventListener('DOMContentLoaded',initDom);
