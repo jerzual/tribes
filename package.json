@@ -4,12 +4,14 @@
   "private": true,
   "devDependencies": {
     "amdclean": "^2.6.0",
-    "browserify": "^11.0.1",
+    "babelify": "^6.3.0",
+    "browserify": "^11.1.0",
     "browserify-shim": "^3.8.10",
     "gulp": "^3.8.11",
     "gulp-concat": "^2.5.2",
     "gulp-connect": "^2.2.0",
     "gulp-cordova": "^1.1.0",
+    "gulp-jade": "^1.1.0",
     "gulp-less": "^3.0.2",
     "gulp-minify-css": "^1.0.0",
     "gulp-rename": "^1.2.2",
@@ -26,7 +28,8 @@
     "phantomjs": "^1.9.18",
     "uglify-js": "^2.4.19",
     "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0"
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.4.0"
   },
   "dependencies": {
     "dat-gui": "^0.5.0",

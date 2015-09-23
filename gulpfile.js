@@ -2,6 +2,7 @@
 'use strict';
 
 var browserify = require('browserify');
+var watchify = require('watchify');
 var gulp = require('gulp');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
@@ -14,6 +15,7 @@ var minifyCSS = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var uglify = require('gulp-uglify');
 var util = require('gulp-util');
+var jade = require('gulp-jade');
 var path = require('path');
 
 var paths = {src: './src', out: './www/'};
@@ -21,21 +23,32 @@ var paths = {src: './src', out: './www/'};
 /* compiles less to css
  ------------------------------- */
 gulp.task('less', function () {
-    return gulp.src(paths.out + '/stylesheets/**/*.less')
+    return gulp.src(paths.src + '/less/*.less')
         .pipe(sourcemaps.init())
         .pipe(less())
-        .pipe(sourcemaps.write())
-        .pipe(gulp.dest(paths.out + '/stylesheets/'))
+        .pipe(minifyCSS())
+        .pipe(sourcemaps.write('./'))
+        .pipe(gulp.dest(paths.out + '/css/'))
         .pipe(connect.reload());
 });
 
+/* compiles jade to html
+ ------------------------------- */
+gulp.task('jade', function () {
+    return gulp.src(paths.src + '/*.jade')
+        .pipe(sourcemaps.init())
+        .pipe(jade())
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest(paths.out + '/'))
+        .pipe(connect.reload());
+});
 
 /* browserifynpm  js code
  ------------------------------- */
 gulp.task('javascript', function () {
     // set up the browserify instance on a task basis
     var b = browserify({
-        entries: paths.out +'/javascripts/main.js',
+        entries: paths.src +'/js/main.js',
         debug: true
     });
 
@@ -47,15 +60,8 @@ gulp.task('javascript', function () {
         .pipe(uglify())
         .on('error', gutil.log)
         .pipe(sourcemaps.write('./'))
-        .pipe(gulp.dest(paths.out+'/javascripts/'));
+        .pipe(gulp.dest(paths.out+'/js/'));
 });
-
-/* copy html filenpm install
- ------------------------------- */
-gulp.task('html', function () {
-    // place code for your default task here
-});
-
 
 gulp.task('connect', function () {
     connect.server({
@@ -64,11 +70,11 @@ gulp.task('connect', function () {
     });
 });
 
-gulp.task('build', ['html','less', 'javascript']);
+gulp.task('build', ['jade','less', 'javascript']);
 
 gulp.task('watch', function () {
-    gulp.watch([paths.src + '/**/*.html'], ['html']);
-    gulp.watch([paths.out + '/**/*.js'], ['uglify']);
+    gulp.watch([paths.src + '/**/*.jade'], ['jade']);
+    gulp.watch([paths.out + '/**/*.js'], ['javascript']);
     gulp.watch([paths.out + '/**/*.less'], ['less']);
 });
 
