@@ -21,7 +21,11 @@ function initDom() {
             return rseed;
         };
 
-        this.generate = function () {
+        this.randomizeSeed = function () {
+            this.seed = randomSeed();
+            console.log('new seed:' + this.seed);
+        };
+        this.resetRNG = function () {
             console.log('new rng with seed:' + this.seed);
             game.rng = new RNG(this.seed);
         };
@@ -34,7 +38,7 @@ function initDom() {
     };
 
     var controls = new DebugControls();
-    controls.generate();
+    controls.randomizeSeed();
 
     var options = {
         frequency: 0.01,
@@ -79,10 +83,10 @@ function initDom() {
         create3DMap: function () {
             /**
              * move lighting to init
-             scene.add(news THREE.AmbientLight({
+             */
+             game.scene.add(new THREE.AmbientLight({
                 color: 0x666666
             }));
-             */
 
 //objects in the scene
 //var geometry = new THREE.CubeGeometry(1,1,1);
@@ -120,7 +124,7 @@ function initDom() {
                 for (var j = 0; j <= terrain.height; j++) {
 
                     //console.log(groundGeometry.vertices[index]);
-                    groundGeometry.vertices[index].setZ(noiseGen.get2DNoise(i, j) * 255);
+                    groundGeometry.attributes.position[index].setZ(noiseGen.get2DNoise(i, j) * 255);
                     //randomize z by multiplying by a random between -1 and 1
                     // groundGeometry.vertices[index].position.z = z * (Math.random() * 2 - 1);
                     index++;
@@ -132,7 +136,8 @@ function initDom() {
     };
     var gui = new dat.GUI();
     gui.add(controls, 'seed');
-    gui.add(controls, 'generate');
+    gui.add(controls, 'randomizeSeed');
+    gui.add(controls, 'resetRNG');
     gui.add(options, 'frequency', -1, 1);
     gui.add(options, 'octaves');
     gui.add(options, 'seaLevel', 0, 255);

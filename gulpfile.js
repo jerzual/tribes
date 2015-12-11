@@ -10,16 +10,23 @@ var sourcemaps = require('gulp-sourcemaps');
 var gutil = require('gulp-util');
 var less = require('gulp-less');
 var connect = require('gulp-connect');
-var cordova = require('gulp-cordova');
+//var cordova = require('gulp-cordova');
 var minifyCSS = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var uglify = require('gulp-uglify');
 var util = require('gulp-util');
 var jade = require('gulp-jade');
 var path = require('path');
+var del = require('del');
 
-var paths = {src: './src', out: './www/'};
+var paths = {
+    src: './src',
+    out: './www'
+};
 
+gulp.task('clean', function () {
+    del(paths.out+'/*');
+});
 /* compiles less to css
  ------------------------------- */
 gulp.task('less', function () {
@@ -43,7 +50,7 @@ gulp.task('jade', function () {
         .pipe(connect.reload());
 });
 
-/* browserifynpm  js code
+/* browserify  js code
  ------------------------------- */
 gulp.task('javascript', function () {
     // set up the browserify instance on a task basis
@@ -60,13 +67,15 @@ gulp.task('javascript', function () {
         .pipe(uglify())
         .on('error', gutil.log)
         .pipe(sourcemaps.write('./'))
-        .pipe(gulp.dest(paths.out+'/js/'));
+        .pipe(gulp.dest(paths.out+'/js/'))
+        .pipe(connect.reload());
 });
 
 gulp.task('connect', function () {
     connect.server({
         root: 'www',
-        livereload: true
+        livereload: true,
+        port:9001
     });
 });
 
@@ -74,8 +83,8 @@ gulp.task('build', ['jade','less', 'javascript']);
 
 gulp.task('watch', function () {
     gulp.watch([paths.src + '/**/*.jade'], ['jade']);
-    gulp.watch([paths.out + '/**/*.js'], ['javascript']);
-    gulp.watch([paths.out + '/**/*.less'], ['less']);
+    gulp.watch([paths.src + '/**/*.js'], ['javascript']);
+    gulp.watch([paths.src + '/**/*.less'], ['less']);
 });
 
 gulp.task('default', ['connect', 'watch']);

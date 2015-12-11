@@ -21,22 +21,22 @@ var THREE = require('three');
                 material = new THREE.MeshBasicMaterial({color: 0xff0000, wireframe: true});
 
                 mesh = new THREE.Mesh(geometry, material);
-  //              scene.add(mesh);
+                scene.add(mesh);
 
                 renderer = new THREE.WebGLRenderer({canvas: canvasElement});
                 renderer.setSize(window.innerWidth, window.innerHeight);
 
-                //document.body.appendChild(renderer.domElement);
+                document.body.appendChild(renderer.domElement);
 
             };
 
             this.animate = function animate() {
 
                 requestAnimationFrame(animate);
-/*
-                mesh.rotation.x += 0.02;
-                mesh.rotation.y += 0.02;
-*/
+
+                //mesh.rotation.x += 0.02;
+                //mesh.rotation.y += 0.02;
+
                 renderer.render(scene, camera);
 
             };
