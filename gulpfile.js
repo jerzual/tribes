@@ -1,66 +1,41 @@
-var gulp = require('gulp'),
+const gulp = require('gulp'),
     sourcemaps = require('gulp-sourcemaps'),
-    less = require('gulp-less'),
     connect = require('gulp-connect'),
-    minifyCSS = require('gulp-minify-css'),
-    rjs = require('gulp-requirejs'),
-    bowerFiles = require('main-bower-files'),
-    bowerRequireJS = require('bower-requirejs'),
+    sass = require('gulp-sass'),
+    browserify = require('browserify'),
+    watchify = require('watchify'),
+    babelify = require('babelify'),
     rename = require('gulp-rename'),
     uglify = require('gulp-uglify'),
-    jade = require('jade'),
-    gulpJade = require('gulp-jade'),
+    jade = require('gulp-jade'),
     path = require('path');
-    util = require('gulp-util'),
-    bower = require('gulp-bower');
+var source = require('vinyl-source-stream'); // Vinyl stream support
+var buffer = require('vinyl-buffer'); // Vinyl stream support
 
-var paths = {src: './src', out: './www/'};
+var paths = {src: './app', out: './dist/'};
 
-/* run a simple bower install
-------------------------------- */
-gulp.task('bower', function() {
-    return bower();
-});
-/*copy bower dependencies to js libs dir
-------------------------------- */
-gulp.task('bower-requirejs', function () {
-    gulp.src(bowerFiles())
-        .pipe(
-            gulp.dest(paths.out + '/javascripts/vendor')
-        );
-    //generate require.js config file
-    var options = {
-        baseUrl: 'js/',
-        config: 'www/javascripts/config.js',
-        transitive: true,
-        'exclude-dev' : true
-    };
+function bundle(bundler) {
+    bundler
+        .bundle()
+        .pipe(source(paths.src+'/App.js')) // Set source name
+        .pipe(buffer()) // Convert to gulp pipeline
+        .pipe(rename('bundle.js')) // Rename the output file
+        .pipe(gulp.dest(paths.out)) // Set the output folder
+}
+gulp.task('js', function () {
+    var bundler = browserify('./app/App.js', {debug:true})
+        .plugin(watchify, {ignoreWatch: ['**/node_modules/**', '**/bower_components/**']})
+        .transform(babelify, {presets: ['es2015', 'react']}); // Browserify
 
-    bowerRequireJS(options, function (rjsConfigFromBower) {
-        util.log("Updated www/javascripts/config.js !");
-        util.log(rjsConfigFromBower);
-    });
+    bundle(bundler);
 });
 
-gulp.task('requirejs', function () {
-    var bowerConfig = require('www/javascripts/config.js');
-    rjs({
-        baseUrl: 'www/javascripts/',
-        name:'main',
-        out: 'tribes.min.js',
-        shim: {
-            // standard require.js shim options
-        }
-        // ... more require.js options
-    })
-        .pipe(gulp.dest(paths.out + '/js/')); // pipe it to the output DIR
-});
-gulp.task('less', function () {
-    return gulp.src(paths.out + '/stylesheets/**/*.less')
+gulp.task('sass', function () {
+    return gulp.src(paths.src + '/style/**/*.scss')
         .pipe(sourcemaps.init())
-        .pipe(less())
+        .pipe(sass())
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest(paths.out + '/stylesheets/'))
+        .pipe(gulp.dest(paths.out + '/css/'))
         .pipe(connect.reload());
 });
 gulp.task('uglify', function () {
@@ -69,7 +44,7 @@ gulp.task('uglify', function () {
         .pipe(uglify())
         .pipe(rename({'extname': '.min.js'}))
         //.pipe(sourcemaps.write())
-        .pipe(gulp.dest(paths.out +'/../dist'))
+        .pipe(gulp.dest(paths.out +'/'))
         .pipe(connect.reload());
 });
 gulp.task('html', function () {
@@ -84,11 +59,11 @@ gulp.task('connect', function () {
     });
 });
 
-gulp.task('build', ['html','less', 'uglify']);
+gulp.task('build', ['html','sass','js', 'uglify']);
 gulp.task('watch', function () {
     gulp.watch([paths.src + '/**/*.html'], ['html']);
-    gulp.watch([paths.out + '/**/*.js'], ['uglify']);
-    gulp.watch([paths.out + '/**/*.less'], ['less']);
+    gulp.watch([paths.src + '/**/*.js'], ['uglify']);
+    gulp.watch([paths.src + '/**/*.scss'], ['sass']);
 });
 
 gulp.task('default', ['connect', 'watch']);
