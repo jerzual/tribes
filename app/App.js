@@ -1,14 +1,16 @@
 import React,{Component,PropTypes} from 'react';
 import Menu from './containers/Menu';
-import World from './containers/World';
+import Main from './containers/Main';
 
 export default class App extends Component{
 
     render(){
         return (
-            <nav id="menu"><Menu/></nav>
-                <canvas id ="tribes"></canvas>
-            <sidebar></sidebar>
+            <div id="app">
+                <nav id="menu"><Menu></Menu></nav>
+                <sidebar></sidebar>
+                <Main></Main>
+            </div>
         );
     }
 }
