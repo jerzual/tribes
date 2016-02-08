@@ -1,3 +1,0 @@
-/**
- * Different types of building.
- */

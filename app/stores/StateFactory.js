@@ -7,10 +7,12 @@ export function initialGameState(state, action) {
             world: {
                 defaultTile: {
                     radius: 12,
-                    points: 6,
+                    column: 6,
+                    row:0,
                     center: {x: 0, y: 0},
                     color: [0, 0, 0],
-
+                    units:[],
+                    buildings:[]
                 },
                 tiles: [[]]
             },
