@@ -9,7 +9,7 @@ module.exports = function(karma) {
 
         browserify: {
             debug: true,
-            transform: [ ['babelify', { presets: ['es2015','react']}] ]
+            transform: [ ['babelify', { presets: ['es2015','react','stage-0']}] ]
         },
         logLevel: 'LOG_DEBUG',
 
