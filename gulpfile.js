@@ -1,90 +1,86 @@
+const gulp = require('gulp');
+const sourcemaps = require('gulp-sourcemaps');
+const connect = require('gulp-connect');
+const sass = require('gulp-sass');
+const eslint = require('gulp-eslint');
+const browserify = require('browserify');
+const watchify = require('watchify');
+const babelify = require('babelify');
+const exorcist = require('exorcist');
+const rename = require('gulp-rename');
+const uglify = require('gulp-uglify');
+const useref = require('gulp-useref');
+const jade = require('gulp-jade');
+const path = require('path');
+const transform = require('vinyl-transform'); // Vinyl stream support
+const source = require('vinyl-source-stream');
+const buffer = require('vinyl-buffer'); // Vinyl stream support
 
-'use strict';
+const paths = {src: './app', out: './www/'};
 
-var browserify = require('browserify');
-var watchify = require('watchify');
-var gulp = require('gulp');
-var source = require('vinyl-source-stream');
-var buffer = require('vinyl-buffer');
-var sourcemaps = require('gulp-sourcemaps');
-var gutil = require('gulp-util');
-var less = require('gulp-less');
-var connect = require('gulp-connect');
-//var cordova = require('gulp-cordova');
-var minifyCSS = require('gulp-minify-css');
-var rename = require('gulp-rename');
-var uglify = require('gulp-uglify');
-var util = require('gulp-util');
-var jade = require('gulp-jade');
-var path = require('path');
-var del = require('del');
 
-var paths = {
-    src: './src',
-    out: './www'
-};
-
-gulp.task('clean', function () {
-    del(paths.out+'/*');
-});
-/* compiles less to css
- ------------------------------- */
-gulp.task('less', function () {
-    return gulp.src(paths.src + '/less/*.less')
-        .pipe(sourcemaps.init())
-        .pipe(less())
-        .pipe(minifyCSS())
-        .pipe(sourcemaps.write('./'))
-        .pipe(gulp.dest(paths.out + '/css/'))
+function bundle(bundler) {
+    bundler
+        .bundle()
+        .pipe(exorcist(paths.out+'/bundle.js.map'))
+        .pipe(source(paths.src + '/Main.js')) // Set source name
+        .pipe(buffer()) // Convert to gulp pipeline
+        .pipe(rename('bundle.js')) // Rename the output file
+        .pipe(gulp.dest(paths.out))// Set the output folder
         .pipe(connect.reload());
+}
+gulp.task('browserify', () => {
+    var bundler = browserify('./app/Main.js', {debug: true})
+        //.plugin(watchify, {ignoreWatch: ['**/node_modules/**', '**/bower_components/**']})
+        .transform(babelify); // Browserify
+
+    bundle(bundler);
 });
 
-/* compiles jade to html
- ------------------------------- */
-gulp.task('jade', function () {
-    return gulp.src(paths.src + '/*.jade')
+gulp.task('lint',function(){
+    return gulp.src([paths.src+'**/*.js'])
+        .pipe(eslint())
+        .pipe(eslint.format())
+        .pipe(eslint.failAfterError());
+});
+gulp.task('sass', () =>
+    gulp.src(paths.src + '/styles/**/*.scss')
         .pipe(sourcemaps.init())
-        .pipe(jade())
+        .pipe(sass())
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest(paths.out + '/'))
-        .pipe(connect.reload());
-});
+        .pipe(gulp.dest(paths.out + '/css/'))
+        .pipe(connect.reload())
+);
 
-/* browserify  js code
- ------------------------------- */
-gulp.task('javascript', function () {
-    // set up the browserify instance on a task basis
-    var b = browserify({
-        entries: paths.src +'/js/main.js',
-        debug: true
-    });
-
-    return b.bundle()
-        .pipe(source('./bundle.js'))
-        .pipe(buffer())
-        .pipe(sourcemaps.init({loadMaps: true}))
-        // Add transformation tasks to the pipeline here.
+gulp.task('uglify',['browserify'], () =>
+    gulp.src(paths.out + '/bundle.js')
         .pipe(uglify())
-        .on('error', gutil.log)
-        .pipe(sourcemaps.write('./'))
-        .pipe(gulp.dest(paths.out+'/js/'))
-        .pipe(connect.reload());
+        .pipe(rename({'extname': '.min.js'}))
+        .pipe(gulp.dest(paths.out + '/'))
+        .pipe(connect.reload())
+);
+gulp.task('html', () => {
+    // place code for your default task here
+    return gulp.src([paths.src + '/*.html'])
+        .pipe(useref())
+        .pipe(gulp.dest(paths.out + '/'))
+        .pipe(connect.reload())
 });
 
-gulp.task('connect', function () {
+
+gulp.task('connect', () => {
     connect.server({
+        port: 8888,
         root: 'www',
-        livereload: true,
-        port:9001
+        livereload: true
     });
 });
 
-gulp.task('build', ['jade','less', 'javascript']);
-
-gulp.task('watch', function () {
-    gulp.watch([paths.src + '/**/*.jade'], ['jade']);
-    gulp.watch([paths.src + '/**/*.js'], ['javascript']);
-    gulp.watch([paths.src + '/**/*.less'], ['less']);
+gulp.task('build', ['html', 'sass', 'browserify', 'uglify']);
+gulp.task('watch', () => {
+    gulp.watch([paths.src + '/**/*.html'], ['html']);
+    gulp.watch([paths.src + '/**/*.js'], ['lint','browserify']);
+    gulp.watch([paths.src + '/**/*.scss'], ['sass']);
 });
 
 gulp.task('default', ['connect', 'watch']);
