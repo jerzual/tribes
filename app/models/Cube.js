@@ -1,16 +1,20 @@
 
 /**
  * Cube coordinates.
- *
+ * coordinates conversion between hex and a Cube(r,c) coordinate system.
  *
  */
 export default class Cube{
+    //position
+    x;
+    y;
+    z;
     constructor(props){
         //column
         this.q = props.q;
         //row
         this.r = props.r;
-        //cube coords
+        //cube coordinates
         this.x = props.x;
         this.y = props.y;
         this.z = props.z;

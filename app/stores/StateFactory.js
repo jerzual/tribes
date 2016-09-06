@@ -1,4 +1,3 @@
-import * as state from './StateFactory';
 
 export function initialGameState(state, action) {
     return {
@@ -9,7 +8,7 @@ export function initialGameState(state, action) {
                     radius: 12,
                     column: 6,
                     row:0,
-                    center: {x: 0, y: 0},
+                    center: {x: 0, y: 0,z:0},
                     color: [0, 0, 0],
                     units:[],
                     buildings:[]

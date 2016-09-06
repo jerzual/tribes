@@ -18,6 +18,8 @@ Three.js : orthographic view http://threejs.org/examples/canvas_camera_orthograp
 is the atomic unit of the game map.
 hexagon shaped / grid location stored
 
+http://www.redblobgames.com/grids/hexagons/ 
+
 ### Chunck
 a chunk is a triangle polygon
 it's an hex 'loading' container.
