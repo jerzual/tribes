@@ -10,7 +10,7 @@ const exorcist = require('exorcist');
 const rename = require('gulp-rename');
 const uglify = require('gulp-uglify');
 const useref = require('gulp-useref');
-const jade = require('gulp-jade');
+const pug = require('gulp-pug');
 const path = require('path');
 const transform = require('vinyl-transform'); // Vinyl stream support
 const source = require('vinyl-source-stream');
@@ -24,7 +24,7 @@ function bundle(bundler) {
         .bundle()
         .pipe(exorcist(paths.out+'/bundle.js.map'))
         .pipe(source(paths.src + '/Main.js')) // Set source name
-        .pipe(buffer()) // Convert to gulp pipeline
+        .pipe(buffer()) // Convert to gulp pinpm outdatedpeline
         .pipe(rename('bundle.js')) // Rename the output file
         .pipe(gulp.dest(paths.out))// Set the output folder
         .pipe(connect.reload());
@@ -48,7 +48,7 @@ gulp.task('sass', () =>
         .pipe(sourcemaps.init())
         .pipe(sass())
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest(paths.out + '/css/'))
+        .pipe(gulp.dest(paths.out + '/'))
         .pipe(connect.reload())
 );
 
@@ -60,8 +60,8 @@ gulp.task('uglify',['browserify'], () =>
         .pipe(connect.reload())
 );
 gulp.task('html', () => {
-    // place code for your default task here
-    return gulp.src([paths.src + '/*.html'])
+    gulp.src([paths.src + '/*.jade'])
+        .pipe(pug())
         .pipe(useref())
         .pipe(gulp.dest(paths.out + '/'))
         .pipe(connect.reload())
@@ -79,7 +79,7 @@ gulp.task('connect', () => {
 
 gulp.task('build', ['html', 'sass', 'browserify', 'uglify']);
 gulp.task('watch', () => {
-    gulp.watch([paths.src + '/**/*.html'], ['html']);
+    gulp.watch([paths.src + '/**/*.jade'], ['html']);
     gulp.watch([paths.src + '/**/*.js'], ['lint','browserify']);
     gulp.watch([paths.src + '/**/*.scss'], ['sass']);
 });
