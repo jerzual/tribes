@@ -4,16 +4,16 @@ import merge from 'lodash/merge'
 import inputReducers from './InputReducers'
 import entityReducers from './EntityReducers'
 import worldReducers from './WorldReducers'
-import { routeReducer } from 'react-router-redux'
+import { routerReducer } from 'react-router-redux'
 import { combineReducers } from 'redux'
 
 
 const rootReducer = combineReducers({
-    inputReducers,
-    entityReducers,
-    worldReducers,
+    inputReducers:inputReducers,
+    entityReducers:entityReducers,
+    worldReducers:worldReducers,
     //errorMessage,
-    routing: routeReducer
+    routing: routerReducer
 });
 
 

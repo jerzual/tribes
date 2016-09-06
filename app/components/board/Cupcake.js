@@ -12,10 +12,10 @@ var MeshFactory = React.createFactory(ReactTHREE.Mesh);
 
 var boxgeometry = new THREE.BoxGeometry( 200,200,200);
 
-var cupcaketexture = THREE.ImageUtils.loadTexture( assetpath('cupCake.png') );
+var cupcaketexture = new THREE.TextureLoader().load( assetpath('cupCake.png') );
 var cupcakematerial = new THREE.MeshBasicMaterial( { map: cupcaketexture } );
 
-var creamtexture = THREE.ImageUtils.loadTexture( assetpath('creamPink.png') );
+var creamtexture = new THREE.TextureLoader().load( assetpath('creamPink.png') );
 var creammaterial = new THREE.MeshBasicMaterial( { map: creamtexture } );
 
 var Cupcake = React.createClass({

@@ -4,33 +4,37 @@ import ReactDOM from 'react-dom';
 import Menu from './containers/Menu';
 import Board from './containers/Board';
 import Tribes from './containers/Tribes';
+import CreditsScreen from './screens/CreditsScreen';
+import GalaxyScreen from './screens/GalaxyScreen';
+import OptionsScreen from './screens/OptionsScreen';
+import SectorScreen from './screens/SectorScreen';
+import PlanetScreen from './screens/PlanetScreen';
+import ChunkScreen from './screens/ChunkScreen';
 import MiniMap from './containers/MiniMap';
 import Console from './components/ui/Console';
 import SelectedUnits from './components/ui/SelectedUnits';
 import AvailableCommands from './components/ui/AvailableCommands';
 
-import history from 'history';
 import {connect} from 'react-redux';
-import {routeActions} from 'react-router-redux';
+import {routerActions} from 'react-router-redux';
 
 //named export for tests
 export class App extends Component{
 
     render(){
+        let {history} = this.props;
         return (
             <div id="app">
                 <nav id="menu"><Menu/></nav>
-
                 <Router history={history}>
                     <Route path="/" component={Tribes}>
-                       <Route path="credits" component={Credits}/>
-                        <Route path="options" component={Options}/>
-                        <Route path="galaxy/:seed" component={Board}>
-                            <Route path="sector/:coords" component={Bar}/>
-                            <Route path="details/:coords" component={Bar}/>
-                            <Route path="planet/:seed" component={Bar}>
-                                <Route path="chunk/:coords" component={Bar}/>
-                            </Route>
+                       <Route path="credits" component={CreditsScreen}/>
+                        <Route path="options" component={OptionsScreen}/>
+                        <Route path="galaxy/:seed" component={GalaxyScreen}>
+                            <Route path="sector/:coords" component={SectorScreen}/>
+                        </Route>
+                        <Route path="planet/:seed" component={PlanetScreen}>
+                            <Route path="chunk/:coords" component={ChunkScreen}/>
                         </Route>
                     </Route>
                 </Router>
@@ -40,20 +44,7 @@ export class App extends Component{
     }
 };
 
-
 export default connect(
     null,
-    routeActions
+    routerActions
 )(App);
-/*
- <Router history={history}>
- <Route path="/" component={Tribes}>
- <IndexRoute component={Home}/>
- <Route path="credits" component={Credits}/>
- <Route path="details" component={Details}>
- <Route path="map" component={Bar}/>
- <Route path="details" component={Bar}/>
-
- </Route>
- </Route>
- </Router>*/
