@@ -7,6 +7,6 @@ export default class MiniMap extends Component{
 
     }
     render(){
-        return <table class="ui"><tbody><tr></tr></tbody></table>
+        return <table className="ui"><tbody><tr></tr></tbody></table>
     }
 }

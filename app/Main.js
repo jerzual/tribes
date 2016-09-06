@@ -4,19 +4,16 @@ import DockMonitor from 'redux-devtools-dock-monitor';
 
 import React from 'react';
 import { render } from 'react-dom';
-import { Router, Route, IndexRoute } from 'react-router';
-import { syncHistory, routeReducer } from 'react-router-redux';
-import createHistory from 'history/lib/createHashHistory';
+import { Router, Route, IndexRoute , browserHistory } from 'react-router';
+import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
+import { createStore, compose, combineReducers } from 'redux';
 import rootReducer from './reducers';
 import App from './App';
 
-const history = createHistory();
-const middleware = syncHistory(history);
 const reducer = combineReducers({
     rootReducer,
-    routing: routeReducer
+    routing: routerReducer
 });
 
 const DevTools = createDevTools(
@@ -26,13 +23,12 @@ const DevTools = createDevTools(
     </DockMonitor>
 );
 
-const finalCreateStore = compose(
-    applyMiddleware(middleware),
-    DevTools.instrument()
-)(createStore);
 
-const store = finalCreateStore(reducer);
-middleware.listenForReplays(store);
+const store = createStore(
+    reducer,
+    DevTools.instrument()
+);
+const history = syncHistoryWithStore(browserHistory, store);
 
 render(
     <Provider store={store}>

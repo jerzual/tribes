@@ -1,22 +1,26 @@
 {
-  "ecmaFeatures": {
-    "modules":true,
-    "blockBindings": true,
-    "forOf": true,
-    "jsx": true,
-    "spread":true,
-    "templateStrings":true,
-    "generators":true,
-    "destructuring":true,
-    "classes":true,
-    "defaultParams":true
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "modules": true,
+      "blockBindings": true,
+      "forOf": true,
+      "jsx": true,
+      "spread": true,
+      "templateStrings": true,
+      "generators": true,
+      "destructuring": true,
+      "classes": true,
+      "defaultParams": true
+    }
   },
   "rules": {
     "semi": 2
   },
-  "env":{
-    "browser":true,
-    "node":true,
-    "mocha":true
+  "env": {
+    "browser": true,
+    "node": true,
+    "mocha": true
   }
 }
