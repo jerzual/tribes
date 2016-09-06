@@ -2,7 +2,7 @@ import React,{Component, PropTypes} from 'react';
 import ReactTHREE from 'react-three';
 import THREE from 'three';
 import Cupcake from '../components/board/Cupcake';
-import Hexagon from '../components/Hexagon';
+import Hexagon from '../components/board/Hexagon';
 
 const MeshFactory = React.createFactory(ReactTHREE.Mesh);
 /**
@@ -14,6 +14,7 @@ export default class Board extends Component {
     };
     render() {
         this.props ={
+            id:'board',
             width:window.innerWidth,
             height:window.innerHeight,
         cupcakedata:{position:new THREE.Vector3(0,0,0), quaternion:new THREE.Quaternion()},
@@ -27,12 +28,12 @@ export default class Board extends Component {
                 aspect:this.props.width/this.props.height,
                 near:1,
                 far:5000,
-                position:new THREE.Vector3(0,0,600),
+                position:new THREE.Vector3(300,300,300),
                 lookat:new THREE.Vector3(0,0,0)
             }
         );
 
-        return <canvas id="board">{React.createElement(
+        return React.createElement(
             ReactTHREE.Renderer,
             this.props,
             React.createElement(
@@ -46,7 +47,7 @@ export default class Board extends Component {
                 MainCameraElement,
                 React.createElement(Cupcake, this.props.cupcakedata)
             )
-        )}</canvas>;
+        );
         //return
     }
 }

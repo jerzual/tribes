@@ -5,8 +5,7 @@ import Minimap from './Minimap';
 /**
  * Container for a launched game.
  */
-export default
-class Tribes extends Component {
+export default class Tribes extends Component {
     static propTypes = {
         width: PropTypes.number,
         height: PropTypes.number

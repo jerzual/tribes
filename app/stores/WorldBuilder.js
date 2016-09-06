@@ -6,6 +6,10 @@ import Hex from '../models/Hex';
 const WORLD_SIZE=256;
 export default class WorldBuilder{
 
+    world ={
+
+    };
+
     constructor(options) {
         this.tiles = [[]];
         this.seed = options.seed;
