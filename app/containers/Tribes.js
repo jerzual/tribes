@@ -1,6 +1,6 @@
 import React,{Component, PropTypes} from 'react';
 import Board from './Board';
-import MiniMap from './Minimap';
+import MiniMap from './MiniMap';
 
 /**
  * Container for a launched game.
