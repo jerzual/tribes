@@ -3,8 +3,12 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node app/server/index.js",
+    "postinstall": "gulp build",
+    "start": "node build/index.js",
+    "build-server": "babel -d ./build ./app/server -s",
     "watch": "watchify --extension=js -o www/bundle.js app/App.js",
+    "lint": "eslint app/ --quiet",
+    "validate": "npm run lint; npm run test && npm outdated --depth 0",
     "test": "mocha --require babel-core/register"
   },
   "browserify": {
@@ -58,6 +62,7 @@
     "watchify": "^3.7.0"
   },
   "dependencies": {
+    "body-parser": "^1.15.2",
     "dat-gui": "^0.5.0",
     "express": "^4.14.0",
     "fast-simplex-noise": "^2.2.0",
