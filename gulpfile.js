@@ -79,7 +79,7 @@ gulp.task('connect', () => {
 
 gulp.task('build', ['html', 'sass', 'browserify', 'uglify']);
 gulp.task('watch', () => {
-    gulp.watch([paths.src + '/**/*.jade'], ['html']);
+    gulp.watch([paths.src + '/*.jade'], ['html']);
     gulp.watch([paths.src + '/**/*.js'], ['lint','browserify']);
     gulp.watch([paths.src + '/**/*.scss'], ['sass']);
 });

@@ -1,4 +1,5 @@
 import SeededBuilder from './SeededBuilder';
+import Galaxy from '../models/Galaxy';
 /**
  * Created by jibhaine on 04/09/2016.
  */
