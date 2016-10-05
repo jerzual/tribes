@@ -6,9 +6,9 @@ import { routeActions } from 'react-router-redux'
 
 class Menu extends Component {
 
-    renderMenuItem(props) {
-        return (<li id={'menu' + props.key}>
-            <Link to={props.path}>{props.name}</Link>
+    renderMenuItem({name,path,key}) {
+        return (<li id={'menu' + key} key={key}>
+            <Link to={path}>{name}</Link>
         </li>);
     }
 

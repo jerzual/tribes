@@ -5,7 +5,7 @@ import RNG from 'rng-js';
 import FastSimplexNoise,{get2DNoise} from 'fast-simplex-noise';
 
 
-var canvas = document.getElementById('tribes');
+var canvas = document.getElementById('tribes-old');
 var game = new Game(canvas);
 game.init();
 window.game = game;
