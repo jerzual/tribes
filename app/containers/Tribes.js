@@ -1,6 +1,6 @@
 import React,{Component, PropTypes} from 'react';
 import Board from './Board';
-import Minimap from './Minimap';
+import MiniMap from './Minimap';
 
 /**
  * Container for a launched game.
@@ -19,7 +19,7 @@ export default class Tribes extends Component {
         const {width, height} = this.props;
         return <div className="game screen">
             <Board width={width} height={height}/>
-            <Minimap></Minimap>
+            <MiniMap></MiniMap>
         </div>
     }
 
