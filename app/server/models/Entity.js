@@ -1,6 +1,6 @@
 'use strict';
 
-import mongoose,{Schema} from 'mongoose';
+import mongoose,{ Schema } from 'mongoose';
 
 var messageSchema = Schema({
     id: String,
