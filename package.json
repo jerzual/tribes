@@ -9,7 +9,7 @@
     "start": "node dist/server.js",
     "lint": "eslint app/ --quiet",
     "validate": "npm run lint; npm run test && npm outdated --depth 0",
-    "test": "jest"
+    "test": "mocha --require babel-core/register"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.6",
