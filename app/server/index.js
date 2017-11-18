@@ -1,8 +1,8 @@
 
-import mongoose from 'mongoose';
-import express from 'express';
-import path from 'path';
-import SocketIO from 'socket.io';
+const mongoose = require('mongoose');
+const express = require('express');
+const path = require('path');
+const SocketIO = require('socket.io');
 
 const app = express();
 // env vars

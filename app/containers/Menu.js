@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 
 import { Link } from 'react-router';
-import { connect } from 'react-redux'
-import { routeActions } from 'react-router-redux'
+import { connect } from 'react-redux';
+import { routeActions } from 'react-router-redux';
 
 class Menu extends Component {
 
@@ -16,7 +16,7 @@ class Menu extends Component {
         const {entries} = this.props;
         return (<ul>
             {entries.map(this.renderMenuItem)}
-        </ul>)
+        </ul>);
     }
 }
 
