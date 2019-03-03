@@ -1,7 +1,7 @@
 import { Component } from 'inferno';
 import { BrowserRouter, Link, Route, Router, Switch } from 'inferno-router';
 
-import { Store } from 'reactive-state';
+import { Store } from 'reactive-state/src/';
 import { enableDevTool } from 'reactive-state/src/devtool';
 
 import Console from './components/ui/Console';
