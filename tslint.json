@@ -1,0 +1,32 @@
+{
+  "extends": "tslint:recommended",
+  "rules": {
+    "arrow-parens": [true, "ban-single-arg-parens"],
+    "forin": false,
+    "indent": [true, "spaces"],
+    "interface-name": false,
+    "max-classes-per-file": true,
+    "max-line-length": false,
+    "member-access": true,
+    "member-ordering": true,
+    "no-bitwise": true,
+    "no-conditional-assignment": false,
+    "no-debugger": true,
+    "no-empty": true,
+    "no-namespace": false,
+    "no-unused-expression": true,
+    "object-literal-sort-keys": false,
+    "one-variable-per-declaration": [true, "ignore-for-loop"],
+    "only-arrow-functions": [
+      true,
+      "allow-declarations",
+      "allow-named-functions"
+    ],
+    "ordered-imports": true,
+    "prefer-const": true,
+    "prefer-for-of": true,
+    "quotemark": [true, "single", "jsx-double"],
+    "trailing-comma": [true, { "multiline": "always", "singleline": "never" }],
+    "variable-name": [true, "ban-keywords", "check-format"]
+  }
+}
