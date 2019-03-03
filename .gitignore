@@ -44,10 +44,10 @@ Temporary Items
 
 *.iml
 .idea
-bower_components
 node_modules
 www/
 plugins/
 platforms/
 hooks/
-dist/
+dist
+.cache

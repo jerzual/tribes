@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "pretty": true,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "newLine": "LF",
+    "outDir": "./dist/",
+    "target": "es5",
+    "sourceMap": true,
+    "declaration": true,
+    "baseUrl": "./app",
+    "jsx": "preserve",
+    "types": ["inferno", "node", "jest"],
+    "lib": ["es2017", "dom"],
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "importHelpers": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true
+  },
+  "include": ["app/**/*"],
+  "exclude": [".git", "node_modules"]
+}

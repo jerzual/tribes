@@ -1,4 +1,8 @@
 language: node_js
-before_install: sudo apt-get install libcairo2-dev libjpeg8-dev libpango1.0-dev libgif-dev build-essential g++
 node_js:
-  - "8.7"
+  - "11"
+cache: npm
+  # before_script:
+#  - npm install -g typescript
+before_install:
+  - npm i -g npm@

@@ -1,4 +1,6 @@
-
+* {
+  box-sizing: border-box;
+}
 
 body {
   padding: 0;
@@ -22,7 +24,7 @@ a {
   left:0;
 }
 .ui{
-
+  position: fixed;
 }
 .corner{
   position:absolute;
