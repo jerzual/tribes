@@ -11,7 +11,7 @@
     "deploy": "gh-pages -d dist",
     "server": "ts-node app/server",
     "lint": "tslint app/*.ts{,x} app/**/*.ts{,x}",
-    "test": "jest --require babel-core/register"
+    "test": "jest"
   },
   "dependencies": {
     "babylonjs": "^3.3.0",
