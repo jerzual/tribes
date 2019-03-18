@@ -1,3 +1,4 @@
+import { NextFunction, Request, Response } from 'express';
 import * as express from 'express';
 import * as path from 'path';
 
@@ -53,3 +54,8 @@ export const server = app.listen(PORT, (err: Error) => {
   }
   console.log('server listening on port: %s', PORT);
 });
+/*
+export function renderPage(req: Request, res: Response, next: NextFunction) {
+  res.send();
+}
+*/
