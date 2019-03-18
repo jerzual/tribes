@@ -1,6 +1,8 @@
 import { Component } from 'inferno';
 import { Link } from 'inferno-router';
 
+import * as styles from './Menu.scss';
+
 export interface MenuProps {
   match?: any;
 }
@@ -41,12 +43,17 @@ export class Menu extends Component<MenuProps, any> {
     const { name, path, key } = item;
     return (
       <li id={'menu' + key} key={key}>
-        <Link to={match.url + path}>{name}</Link>
+        <Link to={path}>{name}</Link>
       </li>
     );
   }
 
   public render(props: MenuProps) {
-    return <ul>{this.items.map(this.renderMenuItem, props.match)}</ul>;
+    return (
+      <nav id="menu">
+        <h1 className={styles.title}>TRIBES</h1>
+        <ul>{this.items.map(this.renderMenuItem, props.match)}</ul>
+      </nav>
+    );
   }
 }
