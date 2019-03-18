@@ -38,14 +38,13 @@ export class App extends Component<any, any> {
   public componentWillMount() {
     enableDevTool(this.store);
   }
-  public render() {
+  public render(props) {
     return (
       <BrowserRouter>
-        <Route exact path="/" component={Tribes}>
+        <Route exact path="/">
           <div id="app">
-            <nav id="menu">
-              <Menu />
-            </nav>
+            <Menu />
+            <Tribes />
             <Switch>
               <Route path="credits" component={CreditsScreen} />
               <Route path="options" component={OptionsScreen} />
@@ -56,7 +55,6 @@ export class App extends Component<any, any> {
                 <Route path="chunk/:coords" component={ChunkScreen} />
               </Route>
             </Switch>
-            <View />
           </div>
         </Route>
       </BrowserRouter>
