@@ -51,7 +51,7 @@
     "lint-staged": "^8.1.5",
     "parcel-bundler": "^1.11.0",
     "prettier": "^1.16.4",
-    "pug": "^2.0.3",
+    "pug": "^2.0.4",
     "sass": "^1.17.2",
     "ts-jest": "^24.0.0",
     "ts-node": "^8.0.2",

@@ -32,5 +32,6 @@ https://en.wikipedia.org/wiki/Geodesic_grid
 
 ## Technical stack
 
-* Three.js http://threejs.org/
-* React + Redux
+* Typescript + Parcel
+* Babylon.js
+* Inferno + Redux
