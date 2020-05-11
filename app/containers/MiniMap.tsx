@@ -1,9 +1,9 @@
-import { Component } from "inferno";
+import { Component } from 'inferno';
 
 export default class MiniMap extends Component {
-  documentDidMount() {}
-  renderTile(canvas) {}
-  render() {
+  public documentDidMount() {}
+  public renderTile(canvas) {}
+  public render() {
     return (
       <table className="ui">
         <tbody>

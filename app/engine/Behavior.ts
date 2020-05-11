@@ -15,7 +15,8 @@ export interface Behavior {
   type: BehaviorType;
   attributes: BehaviorAttributes;
 }
-export class ConcreteBehavior<Behavior> {
-  constructor() {}
-  public execute(target: Entity) {},
+export class ConcreteBehavior {
+  public execute(target: Entity) {
+    console.log('executing behavior on target', target);
+  },
 }

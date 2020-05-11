@@ -1,9 +1,12 @@
-import { Player } from '../../../app/server/models/Player';
+import { PlayerModel } from './PlayerModel';
 
 describe('has a facebookId ', () => {
   let player;
   beforeEach(() => {
-    player = new Player();
+    player = new PlayerModel();
+  });
+  it('can be constructed', () => {
+    expect(player).toBeDefined();
   });
   it('has a facebookId ', () => {});
 });

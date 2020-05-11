@@ -1,9 +1,9 @@
-import { Galaxy } from '../../../app/server/models/Galaxy';
+import { GalaxyModel } from './GalaxyModel';
 
-describe('has a facebookId ', () => {
+describe('GalaxyModel', () => {
   let galaxy;
   beforeEach(() => {
-    galaxy = new Galaxy();
+    galaxy = new GalaxyModel();
   });
   it('has a facebookId ', () => {});
 });

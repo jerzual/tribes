@@ -6,7 +6,7 @@ import HexModel from './HexModel';
 export default class ChunkModel {
   private tiles: { [id: string]: any };
   private worldOffset;
-  constructor(radius = 5, offset = { x: 0, y: 0, z: 0 }) {
+  constructor(private radius = 5, private offset = { x: 0, y: 0, z: 0 }) {
     // Map of Hex
     this.tiles = {};
     // init hexagon circle. :
@@ -47,7 +47,7 @@ export default class ChunkModel {
         return xInside && yInside;
       })
       .map(hex => {
-        return this.getHexAt([hex.x][hex.y]);
+        return this.getHexAt(hex.x, hex.y, hex.z);
       });
   }
 }

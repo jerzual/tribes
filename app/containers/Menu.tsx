@@ -48,7 +48,7 @@ export class Menu extends Component<MenuProps, any> {
     );
   }
 
-  public render(props: MenuProps) {
+  public render(props?: MenuProps) {
     return (
       <nav id="menu">
         <h1 className={styles.title}>TRIBES</h1>
