@@ -51,3 +51,5 @@ platforms/
 hooks/
 dist
 .cache
+
+coverage/
