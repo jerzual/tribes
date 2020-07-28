@@ -17,5 +17,5 @@ export interface Behavior {
 }
 export class ConcreteBehavior<Behavior> {
   constructor() {}
-  public execute(target: Entity) {},
+  public execute(target: Entity) {}
 }

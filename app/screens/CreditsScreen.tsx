@@ -1,4 +1,4 @@
-import { Component } from 'inferno';
+import React, { Component } from 'react';
 
 export class CreditsScreen extends Component {
   public render() {

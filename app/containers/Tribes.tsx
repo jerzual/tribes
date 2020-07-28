@@ -1,6 +1,5 @@
-import { Component } from 'inferno';
-import Board from './Board';
-import View from './Board';
+import React, { Component } from 'react';
+import {Board} from './Board';
 import MiniMap from './MiniMap';
 
 interface TribesState {
@@ -15,7 +14,7 @@ export default class Tribes extends Component<any, TribesState> {
     const { innerWidth, innerHeight } = window;
     return (
       <div className="game screen">
-        <View width={innerWidth} height={innerHeight} />
+        <Board width={innerWidth} height={innerHeight} />
         <MiniMap />
       </div>
     );

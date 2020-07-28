@@ -1,6 +1,4 @@
-import { Component } from 'inferno';
-import { Link } from 'inferno-router';
-
+import React, { Component } from 'react';
 import * as styles from './Menu.scss';
 
 export interface MenuProps {
@@ -12,7 +10,7 @@ export interface MenuItem {
   key: string;
   action?: string;
 }
-export class Menu extends Component<MenuProps, any> {
+export class Menu extends Component<MenuProps> {
   public items: MenuItem[] = [
     {
       key: '1',
@@ -43,7 +41,7 @@ export class Menu extends Component<MenuProps, any> {
     const { name, path, key } = item;
     return (
       <li id={'menu' + key} key={key}>
-        <Link to={path}>{name}</Link>
+        <a href={path}>{name}</a>
       </li>
     );
   }

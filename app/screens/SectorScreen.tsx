@@ -1,4 +1,4 @@
-import { Component } from 'inferno';
+import React, { Component } from 'react';
 
 export class SectorScreen extends Component<any, any> {
   public render() {
