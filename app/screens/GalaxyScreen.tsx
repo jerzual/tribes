@@ -1,16 +1,17 @@
-import { Component } from 'inferno';
+import React, { FunctionComponent } from 'react';
 
 interface GalaxyScreenProps {
   seed: string;
 }
 
-export class GalaxyScreen extends Component<GalaxyScreenProps, any> {
-  public render(props: GalaxyScreenProps) {
-    const { seed } = props;
-    return (
-      <div>
-        <h1>Galaxy #{seed}</h1>
-      </div>
-    );
-  }
-}
+export const GalaxyScreen: FunctionComponent<GalaxyScreenProps> = ({
+  seed,
+  children,
+}) => {
+  return (
+    <div>
+      <h1>Galaxy #{seed}</h1>
+      {children}
+    </div>
+  );
+};
