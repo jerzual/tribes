@@ -2,10 +2,14 @@ version: "3.0"
 services:
   mongo:
     image: mongo
+    ports:
+      - 5984:5984
     restart: always
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
+    volumes: 
+      - ./data:/opt/couchdb/data
 
   mongo-express:
     image: mongo-express
@@ -26,5 +30,8 @@ services:
     volumes:
       - ./:/home/node/app
     ports:
-      - 8082:4321
+      - 3000:3000
+      - 4321:4321
     command: "npm start"
+    environment:
+      MONGO_TRIBES_URI: mongodb://mongo:5984/tribes

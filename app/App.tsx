@@ -1,8 +1,6 @@
-import { Component } from 'inferno';
-import { BrowserRouter, Link, Route, Router, Switch } from 'inferno-router';
-
-import { Store } from 'reactive-state/src/';
-import { enableDevTool } from 'reactive-state/src/devtool';
+import React, { Component } from 'react';
+import { Route, 
+  BrowserRouter as Router, Switch } from 'react-router-dom';
 
 import Console from './components/ui/Console';
 import View from './containers/Board';
@@ -16,48 +14,42 @@ import { GalaxyScreen } from './screens/GalaxyScreen';
 import { OptionsScreen } from './screens/OptionsScreen';
 import { PlanetScreen } from './screens/PlanetScreen';
 import { SectorScreen } from './screens/SectorScreen';
-import { StoreProvider } from './stores/StoreProvider';
 
-// This is our global AppState. We use this syntax to clearify that it is an intersection of sub-slices
-// used my app modules. We also omit some state slices alltogether for modules that create their own
-// (i.e. AdvancedCounter and Todo)
-const initialAppState = Object.assign(
-  {},
-  { counter: 0 },
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
 
-  // add any other slices here...
-);
+const state: any ={}
+// todo init redux-observable
+// const store = createStore(rootReducer, applyMiddleware(epicMiddleware));
+const store = createStore((state, action) => {
+  return state
+})
 
-// named export for tests
-export class App extends Component<any, any> {
-  // The root store. Note that even if we work with "slices" in reactive-state, there is only a
-  // single store throughout the application just as in Redux.
-  // By using typeof initialAppState as a type, we make sure the type matches the initialState instance above
-  public store: Store<typeof initialAppState> = Store.create(initialAppState);
-
-  public componentWillMount() {
-    enableDevTool(this.store);
-  }
+export class App extends Component {
   public render(props) {
     return (
-      <BrowserRouter>
-        <Route exact path="/">
-          <div id="app">
-            <Menu />
-            <Tribes />
-            <Switch>
-              <Route path="credits" component={CreditsScreen} />
-              <Route path="options" component={OptionsScreen} />
-              <Route path="galaxy/:seed" component={GalaxyScreen}>
-                <Route path="sector/:coords" component={SectorScreen} />
-              </Route>
-              <Route path="planet/:seed" component={PlanetScreen}>
-                <Route path="chunk/:coords" component={ChunkScreen} />
-              </Route>
-            </Switch>
-          </div>
-        </Route>
-      </BrowserRouter>
+      <Provider store={store}>
+        <Router >
+          <Route exact path="/">
+            <div id="app">
+              <Menu />
+              <Tribes />
+              <Switch>
+                <Route path="credits"><CreditsScreen/></Route>
+                <Route path="options"><OptionsScreen/></Route>
+                <Route path="galaxy/:seed"><GalaxyScreen>
+                  <Route path="sector/:coords"><SectorScreen/></Route>
+                  </GalaxyScreen>
+                </Route>
+                <Route path="planet/:seed"><PlanetScreen>
+                  <Route path="chunk/:coords"><ChunkScreen/></Route>
+                  </PlanetScreen>
+                </Route>
+              </Switch>
+            </div>
+          </Route>
+        </Router>
+      </Provider>
     );
   }
 }

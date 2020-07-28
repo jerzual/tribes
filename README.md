@@ -34,3 +34,6 @@ https://en.wikipedia.org/wiki/Geodesic_grid
 
 * Three.js http://threejs.org/
 * React + Redux
+* rxjs everywhere :)
+* redux-observable
+* marblejs

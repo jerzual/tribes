@@ -1,4 +1,4 @@
-import { Component } from "inferno";
+import React, { Component } from "react";
 
 export default class MiniMap extends Component {
   documentDidMount() {}

@@ -11,7 +11,7 @@
     "declaration": true,
     "baseUrl": "./app",
     "jsx": "preserve",
-    "types": ["inferno", "node", "jest"],
+    "types": ["react", "node", "jest"],
     "lib": ["es2017", "dom"],
     "noUnusedLocals": false,
     "noUnusedParameters": false,

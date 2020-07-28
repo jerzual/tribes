@@ -1,6 +1,6 @@
 import { App } from 'App';
-import { renderToString } from 'inferno-server';
+import ReactDOMServer from 'react-dom/server';
 
 export function renderApp() {
-  return renderToString(App);
+  return ReactDOMServer.renderToString(App);
 }

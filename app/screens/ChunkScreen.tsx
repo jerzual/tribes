@@ -1,4 +1,4 @@
-import { Component } from 'inferno';
+import React, { Component } from 'react';
 
 export class ChunkScreen extends Component {
   public render(props) {

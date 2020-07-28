@@ -1,4 +1,4 @@
-import { Component } from 'inferno';
+import React, { Component , FunctionComponent} from 'react';
 import { Polygon } from '../components/board/Hexagon';
 
 export interface ViewProps {
@@ -10,13 +10,7 @@ export interface ViewProps {
 /**
  *
  */
-export default class View extends Component<ViewProps, any> {
-  public render(props: ViewProps) {
-    this.props = {
-      height: window.innerHeight,
-      id: 'board',
-      width: window.innerWidth,
-    };
+export const Board: FunctionComponent<ViewProps> = (props: ViewProps) => {
     return (
       <div
         style={{
@@ -27,4 +21,4 @@ export default class View extends Component<ViewProps, any> {
       </div>
     );
   }
-}
+

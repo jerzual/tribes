@@ -1,0 +1,253 @@
+{
+  "version": 1,
+  "projects": {
+    "tribes-web": {
+      "root": "apps/tribes-web",
+      "sourceRoot": "apps/tribes-web/src",
+      "projectType": "application",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/web:build",
+          "options": {
+            "outputPath": "dist/apps/tribes-web",
+            "index": "apps/tribes-web/src/index.html",
+            "main": "apps/tribes-web/src/main.tsx",
+            "polyfills": "apps/tribes-web/src/polyfills.ts",
+            "tsConfig": "apps/tribes-web/tsconfig.app.json",
+            "assets": [
+              "apps/tribes-web/src/favicon.ico",
+              "apps/tribes-web/src/assets"
+            ],
+            "styles": [
+              "apps/tribes-web/src/styles.scss"
+            ],
+            "scripts": [],
+            "webpackConfig": "@nrwl/react/plugins/webpack"
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/tribes-web/src/environments/environment.ts",
+                  "with": "apps/tribes-web/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/web:dev-server",
+          "options": {
+            "buildTarget": "tribes-web:build",
+            "proxyConfig": "apps/tribes-web/proxy.conf.json"
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "tribes-web:build:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "apps/tribes-web/tsconfig.app.json",
+              "apps/tribes-web/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/tribes-web/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/tribes-web/jest.config.js",
+            "tsConfig": "apps/tribes-web/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "tribes-web-e2e": {
+      "root": "apps/tribes-web-e2e",
+      "sourceRoot": "apps/tribes-web-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/tribes-web-e2e/cypress.json",
+            "tsConfig": "apps/tribes-web-e2e/tsconfig.e2e.json",
+            "devServerTarget": "tribes-web:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "tribes-web:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "apps/tribes-web-e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/tribes-web-e2e/**/*"
+            ]
+          }
+        }
+      }
+    },
+    "tribes-api": {
+      "root": "apps/tribes-api",
+      "sourceRoot": "apps/tribes-api/src",
+      "projectType": "application",
+      "prefix": "tribes-api",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/tribes-api",
+            "main": "apps/tribes-api/src/main.ts",
+            "tsConfig": "apps/tribes-api/tsconfig.app.json",
+            "assets": [
+              "apps/tribes-api/src/assets"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/tribes-api/src/environments/environment.ts",
+                  "with": "apps/tribes-api/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "tribes-api:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "apps/tribes-api/tsconfig.app.json",
+              "apps/tribes-api/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/tribes-api/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/tribes-api/jest.config.js",
+            "tsConfig": "apps/tribes-api/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/react"
+  },
+  "schematics": {
+    "@nrwl/workspace": {
+      "library": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/cypress": {
+      "cypress-project": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/react": {
+      "application": {
+        "style": "scss",
+        "linter": "eslint",
+        "babel": true
+      },
+      "library": {
+        "style": "scss",
+        "linter": "eslint"
+      },
+      "storybook-configuration": {
+        "linter": "eslint"
+      },
+      "component": {
+        "style": "scss"
+      }
+    },
+    "@nrwl/next": {
+      "application": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/web": {
+      "application": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/node": {
+      "application": {
+        "linter": "eslint"
+      },
+      "library": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/nx-plugin": {
+      "plugin": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/nest": {
+      "application": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/express": {
+      "application": {
+        "linter": "eslint"
+      },
+      "library": {
+        "linter": "eslint"
+      }
+    }
+  },
+  "defaultProject": "tribes-web"
+}

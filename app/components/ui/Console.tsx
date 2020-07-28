@@ -1,7 +1,7 @@
 /**
  * Show text action. reports
  */
-import { Component, render, version } from 'inferno';
+import React, { Component } from 'react';
 
 export default class Console extends Component<any, any> {
   private lines: string[];
