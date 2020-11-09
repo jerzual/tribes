@@ -5,7 +5,8 @@ export enum PlanetType {
   Rocks,
   Earth,
 }
-export interface PlanetModel {
+
+export class PlanetModel {
   seed: string;
   name: string;
   description: string;

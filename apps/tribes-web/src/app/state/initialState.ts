@@ -1,8 +1,9 @@
 export interface GameState {
   status: 'paused' | 'running';
   entities: { [id: string]: EntityState };
-  ui: UIState;
+  interface: UIState;
   world?: any;
+  player: PlayerState,
   options?: any;
 }
 export interface EntityState {
@@ -15,9 +16,15 @@ export interface UIState {
   widgets: { [widgetName: string]: boolean };
 }
 
+export interface PlayerState{
+  status: 'unknown' | 'pending' | 'error' | 'loaded',
+  uuid?: string;
+}
+
 export function initialGameState(): GameState {
   return {
     status: 'running',
+    player: {status: 'unknown'},
     entities: {},
     //
     world: {
@@ -30,13 +37,13 @@ export function initialGameState(): GameState {
         units: [],
         buildings: [],
       },
-      tiles: [[]],
+      tiles: [],
     },
     options: {
       godMode: false,
       difficulty: 'SOFT',
     },
-    ui: {
+    interface: {
       loading: false,
       widgets: {
         position: false,
