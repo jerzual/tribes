@@ -1,37 +1,74 @@
 version: "3.0"
 services:
-  mongo:
+  tribes-mongo:
     image: mongo
     ports:
-      - 5984:5984
+      - 27017:27017
     restart: always
+    env_file: 
+      - .env
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
+      #- MONGO_INITDB_ROOT_USERNAME=${TRIBES_MONGO_USERNAME}
+      #- MONGO_INITDB_ROOT_PASSWORD=${TRIBES_MONGO_PASSWORD}
+      - MONGO_INITDB_DATABASE=tribes
+      - MONGO_PORT=27017
     volumes: 
-      - ./data:/opt/couchdb/data
+      - ./data/mongo:/data/db
+    networks: 
+      private:
 
-  mongo-express:
+  tribes-mongo-express:
     image: mongo-express
     restart: always
+    env_file: 
+      - .env
     ports:
       - 8081:8081
     environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: root
-      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+      - ME_CONFIG_MONGODB_SERVER=tribes-mongo
+      - ME_CONFIG_MONGODB_PORT=27017
+      - ME_CONFIG_MONGODB_ENABLE_ADMIN=true
+      - ME_CONFIG_MONGODB_AUTH_DATABASE=admin
+      - ME_CONFIG_MONGODB_AUTH_USERNAME=${TRIBES_MONGO_USERNAME}
+      - ME_CONFIG_MONGODB_AUTH_PASSWORD=${TRIBES_MONGO_PASSWORD}
+      - ME_CONFIG_BASICAUTH_USERNAME=${TRIBES_MONGOEXPRESS_USER}
+      - ME_CONFIG_BASICAUTH_PASSWORD=${TRIBES_MONGOEXPRESS_PASSWORD}
+    depends_on: 
+      - tribes-mongo
+    networks: 
+      private:
 
-  node: 
-    image: node
-    user: "node"
-    working_dir: /home/node/app
+  tribes-api: 
+    build: .
     environment:
       - NODE_ENV=production
-      - PORT=4321
+      - TRIPES_API_HOST=${TRIBES_API_HOST}
+      - TRIPES_API_PORT=3000
+    env_file:
+      - .env
     volumes:
-      - ./:/home/node/app
+      - ./dist/apps/tribes-api:/opt/tribes/dist
     ports:
       - 3000:3000
-      - 4321:4321
-    command: "npm start"
+    depends_on: 
+      - tribes-mongo
+    networks: 
+      public:
+      private:
+  tribes-web: 
+    build: .
     environment:
-      MONGO_TRIBES_URI: mongodb://mongo:5984/tribes
+      - NODE_ENV=production
+      - TRIBES_WEB_HOST=http://www{TRIBES_PREFIX:}/
+      - TRIBES_WEB_PORT=5000
+    volumes:
+      - ./dist/apps/tribes-web:/opt/tribes/dist
+    ports:
+      - 8080:8080
+    depends_on: 
+      - tribes-api
+    command: npx http-server dist/
+networks:
+  public:  
+    driver: "bridge"
+  private:
