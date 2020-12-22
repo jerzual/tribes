@@ -24,7 +24,7 @@
   "projects": {
     "tribes-web": {
       "tags": [],
-      "implicitDependencies": ["tribes-model"]
+      "implicitDependencies": ["tribes-model", "tribes-engine"]
     },
     "tribes-web-e2e": {
       "tags": [],
@@ -32,9 +32,12 @@
     },
     "tribes-api": {
       "tags": [],
-      "implicitDependencies": ["tribes-model"]
+      "implicitDependencies": ["tribes-model", "tribes-engine"]
     },
     "tribes-model": {
+      "tags": []
+    },
+    "tribes-engine": {
       "tags": []
     }
   }

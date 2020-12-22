@@ -1,1 +1,1 @@
-export * from './lib/tribes-model';
+export * from './lib/index';

@@ -8,5 +8,5 @@ export const rootEpic = combineEpics(pingEpic$, fetchPlayerEpic$);
 
 export const rootReducer = combineReducers({
   ping,
-  fetchPlayerReducer,
+  player: fetchPlayerReducer,
 });

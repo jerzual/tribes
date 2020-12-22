@@ -1,3 +1,3 @@
 export interface ResourceModel {
-  type: 'gold' | 'stone' | 'wood' | 'food';
+  type: 'gold' | 'stone' | 'wood' | 'food' | 'water';
 }

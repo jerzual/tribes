@@ -3,7 +3,7 @@
  * coordinates conversion between hex and a Cube(r,c) coordinate system.
  *
  */
-export default class Cube {
+export default class CubeModel {
   // position
   public x: number;
   public y: number;
@@ -29,7 +29,7 @@ export default class Cube {
    * @returns {Cube}
    */
   public static fromCartesian(q, r) {
-    return new Cube({ q, r });
+    return new CubeModel({ q, r });
   }
   public static distance(a, b) {
     return (
