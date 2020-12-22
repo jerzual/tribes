@@ -1,4 +1,5 @@
 import { Action } from 'redux';
+import { v4 } from 'uuid';
 import {
   FETCH_PLAYER,
   FETCH_PLAYER_SUCCESS,
@@ -9,8 +10,8 @@ import {
 export function fetchPlayerReducer(state, action) {
   if (!state) {
     return {
-      state: 'unknown',
-      player: undefined,
+      userAgent: navigator.userAgent,
+      uuid: v4(),
     };
   }
   switch (action.type) {

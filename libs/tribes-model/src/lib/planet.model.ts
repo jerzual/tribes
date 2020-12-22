@@ -13,4 +13,5 @@ export class PlanetModel {
   type: PlanetType;
   size: number;
   details: number;
+  mainColor?: string;
 }

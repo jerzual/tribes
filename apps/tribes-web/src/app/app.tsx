@@ -4,8 +4,6 @@ import { BehaviorSubject } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import './app.scss';
 
-import { ReactComponent as Logo } from './logo.svg';
-
 import { Route, Link } from 'react-router-dom';
 import { rootEpic } from './state/modules/root.epic';
 import { rootReducer } from './state/modules';
@@ -14,6 +12,10 @@ import { compose, applyMiddleware, createStore } from 'redux';
 import { environment } from '../environments/environment.prod';
 import { Board } from './three/board.container';
 import { Card } from './ui/card.layout';
+import { Menu } from './ui/menu.component';
+import { Page } from './ui/page.layout';
+import OptionsScreen from './screens/options.screen';
+import { ChunkScreen } from './screens/chunk.screen';
 
 export const epicMiddleware = createEpicMiddleware();
 const composeEnhancers =
@@ -55,43 +57,34 @@ export const App: FunctionComponent = () => {
    */
   return (
     <div className="app">
-      <header className="flex">
-        <Logo width="75" height="75" />
-        <h1>Welcome to tribes-web!</h1>
-      </header>
-      <main>
-        <h2>Player &amp; Infos</h2>
-        <p>Thank you for using and showing some ♥ for Nx.</p>
-        <Board></Board>
-      </main>
-
-      <div role="navigation">
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/page-2">Page 2</Link>
-          </li>
-        </ul>
-      </div>
+      <Menu></Menu>
+      <Board></Board>
       <Route
-        path="/"
+        path="/options"
+        exact
+        render={() => (<ChunkScreen></ChunkScreen>)}>
+          
+        </Route>
+      <Route
+        path="/options"
         exact
         render={() => (
-          <Card>
-            This is the generated root route.{' '}
-            <Link to="/page-2">Click here for page 2.</Link>
-          </Card>
+          <Page>
+            <Card>
+              <OptionsScreen></OptionsScreen>
+            </Card>
+          </Page>
         )}
       />
       <Route
-        path="/page-2"
+        path="/world"
         exact
         render={() => (
-          <Card>
-            <Link to="/">Click here to go back to root page.</Link>
-          </Card>
+          <Page>
+            <Card>
+              <Link to="/">Click here to go back to root page.</Link>
+            </Card>
+          </Page>
         )}
       />
       {/* END: routes */}

@@ -13,7 +13,7 @@ export const fetchPlayerEpic$: Epic = (action$) =>
   action$.pipe(
     ofType(FETCH_PLAYER),
     mergeMap((action) =>
-      ajax.getJSON(`/api/players/${action.payload}`).pipe(
+      ajax.post(`/api/players/${action.payload}`).pipe(
         map((response) => fetchPlayerFulfilled(response)),
         catchError((error) =>
           of({

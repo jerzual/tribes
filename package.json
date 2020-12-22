@@ -42,11 +42,13 @@
     "css-module-types": "^0.2.2",
     "dat-gui": "^0.5.0",
     "delaunay": "^0.4.0",
+    "document-register-element": "1.13.1",
     "express": "^4.17.1",
     "fast-simplex-noise": "^3.2.1",
     "fp-ts": "^2.7.0",
     "hammerjs": "^2.0.8",
     "mongodb": "^3.5.5",
+    "open-simplex-noise": "^2.4.0-pre4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.0",
@@ -60,8 +62,7 @@
     "rxdb": "^9.3.0",
     "rxjs": "^6.6.0",
     "three": "^0.114.0",
-    "typeorm": "^0.2.24",
-    "document-register-element": "1.13.1"
+    "typeorm": "^0.2.24"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
