@@ -1,5 +1,5 @@
 'use strict';
-import RNG from 'rng-js';
+import * as RNG from 'rng-js';
 export const SEED_LENGTH = 5;
 /**
  * Encapsulate a seed string and an RNG

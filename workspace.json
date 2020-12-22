@@ -199,6 +199,33 @@
           }
         }
       }
+    },
+    "tribes-engine": {
+      "root": "libs/tribes-engine",
+      "sourceRoot": "libs/tribes-engine/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "libs/tribes-engine/tsconfig.lib.json",
+              "libs/tribes-engine/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/tribes-engine/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/tribes-engine/jest.config.js",
+            "tsConfig": "libs/tribes-engine/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {

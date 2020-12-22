@@ -2,7 +2,7 @@
 body,
 html {
   width: 100%;
-  height: 100;
+  height: 100%;
 }
 * {
   box-sizing: content-box;
@@ -12,4 +12,79 @@ html {
 :root{
   --color-white: rgba(255,255,255,0.95);
   --color-trans-dark: rgba(0,0,0,0.35);
+  --color-green: #a1d123;
+  --color-blue: #98c9c9;
+  --color-brownish: #5d5448;
+  --color-brownish: #A78D7B;
+  --color-pink: #A91C7B;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  width:100%;height:100%;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  color:black;
+  background: rgb(232,255,173);// e8ffad
+  background: linear-gradient(50deg, rgba(232,255,173,1) 0%, rgba(152,201,201,1) 100%); 
+}
+
+a {
+  color: #00B7FF;
+}
+h1, h2, h3, h4, h5, h6, .title{
+
+  color: var(--color-pink);
+  letter-spacing: .25em;
+}
+#tribes,#app, .screen{
+  width:100%;
+  height:100%;
+}
+#map{
+  position:absolute;
+  bottom:0;
+  left:0;
+}
+.ui{
+  position: fixed;
+}
+.corner{
+  position:absolute;
+
+}
+#menu{
+  position:absolute;
+  z-index:1;
+  left:0;
+  top:0;
+  bottom:0;
+  width:120px;
+  background-color:rgba(0,0,0,0.75);
+
+  ul{
+    margin:0;
+    padding:0;
+    li{
+      list-style-type:none;
+      a{
+        color:white;
+        padding:1rem;
+        display:block;
+        text-decoration:none;
+        text-transform:uppercase;
+        &:focus,&:hover{
+          text-shadow:0 0 1em white;
+          outline:none;
+        }
+        transition:all 0.5s ease-in;
+      }
+
+    }
+  }
+}
+#board{
+  position:absolute;
+  z-index:0;
+  left:0;bottom:0;right:0;top:0;
 }

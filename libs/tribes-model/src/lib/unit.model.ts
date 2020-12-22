@@ -1,1 +1,4 @@
-export class UnitModel {}
+export interface UnitModel {
+    id: string;
+
+}
