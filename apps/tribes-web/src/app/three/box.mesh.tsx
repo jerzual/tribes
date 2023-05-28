@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useRef, useState } from 'react';
-import { useFrame } from 'react-three-fiber';
+import { useFrame } from '@react-three/fiber';
 import { Vector3 } from 'three';
 
 export const Box: FunctionComponent<{ position: number[] }> = (props) => {

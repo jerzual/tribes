@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { Canvas } from 'react-three-fiber';
+import { Canvas } from '@react-three/fiber';
 import { Vector3 } from 'three';
 import { Box } from './box.mesh';
 export interface BoardProps {

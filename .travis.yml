@@ -1,9 +1,0 @@
-language: node_js
-node_js:
-  - '14'
-cache:
-  npm
-  # before_script:
-#  - npm install -g typescript
-before_install:
-  - npm i -g npm@latest
