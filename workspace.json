@@ -54,7 +54,8 @@
                 }
               ]
             }
-          }
+          },
+          "outputs": ["{options.outputPath}"]
         },
         "serve": {
           "builder": "@nrwl/web:dev-server",
@@ -69,23 +70,28 @@
           }
         },
         "lint": {
-          "builder": "@nrwl/linter:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "linter": "eslint",
-            "tsConfig": [
-              "apps/tribes-web/tsconfig.app.json",
-              "apps/tribes-web/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!apps/tribes-web/**/*"]
+            "lintFilePatterns": [
+              "apps/tribes-web/**/*.js",
+              "apps/tribes-web/**/*.jsx",
+              "apps/tribes-web/**/*.ts",
+              "apps/tribes-web/**/*.tsx",
+              "apps/tribes-web/**/*.spec.ts",
+              "apps/tribes-web/**/*.spec.tsx",
+              "apps/tribes-web/**/*.spec.js",
+              "apps/tribes-web/**/*.spec.jsx",
+              "apps/tribes-web/**/*.d.ts"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "apps/tribes-web/jest.config.js",
-            "tsConfig": "apps/tribes-web/tsconfig.spec.json",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/apps/tribes-web"]
         }
       }
     },
@@ -108,11 +114,12 @@
           }
         },
         "lint": {
-          "builder": "@nrwl/linter:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "linter": "eslint",
-            "tsConfig": ["apps/tribes-web-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/tribes-web-e2e/**/*"]
+            "lintFilePatterns": [
+              "apps/tribes-web-e2e/src/**/*.ts",
+              "apps/tribes-web-e2e/src/**/*.js"
+            ]
           }
         }
       }
@@ -144,7 +151,8 @@
                 }
               ]
             }
-          }
+          },
+          "outputs": ["{options.outputPath}"]
         },
         "serve": {
           "builder": "@nrwl/node:execute",
@@ -153,23 +161,22 @@
           }
         },
         "lint": {
-          "builder": "@nrwl/linter:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "linter": "eslint",
-            "tsConfig": [
-              "apps/tribes-api/tsconfig.app.json",
-              "apps/tribes-api/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!apps/tribes-api/**/*"]
+            "lintFilePatterns": [
+              "apps/tribes-api/**/*.ts",
+              "apps/tribes-api/**/*.spec.ts",
+              "apps/tribes-api/**/*.d.ts"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "apps/tribes-api/jest.config.js",
-            "tsConfig": "apps/tribes-api/tsconfig.spec.json",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/apps/tribes-api"]
         }
       }
     },
@@ -180,23 +187,25 @@
       "schematics": {},
       "architect": {
         "lint": {
-          "builder": "@nrwl/linter:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "linter": "eslint",
-            "tsConfig": [
-              "libs/tribes-model/tsconfig.lib.json",
-              "libs/tribes-model/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/tribes-model/**/*"]
+            "lintFilePatterns": [
+              "libs/tribes-model/**/*.ts",
+              "libs/tribes-model/**/*.spec.ts",
+              "libs/tribes-model/**/*.spec.tsx",
+              "libs/tribes-model/**/*.spec.js",
+              "libs/tribes-model/**/*.spec.jsx",
+              "libs/tribes-model/**/*.d.ts"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/tribes-model/jest.config.js",
-            "tsConfig": "libs/tribes-model/tsconfig.spec.json",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/tribes-model"]
         }
       }
     },
@@ -207,23 +216,28 @@
       "schematics": {},
       "architect": {
         "lint": {
-          "builder": "@nrwl/linter:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "linter": "eslint",
-            "tsConfig": [
-              "libs/tribes-engine/tsconfig.lib.json",
-              "libs/tribes-engine/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/tribes-engine/**/*"]
+            "lintFilePatterns": [
+              "libs/tribes-engine/**/*.js",
+              "libs/tribes-engine/**/*.jsx",
+              "libs/tribes-engine/**/*.ts",
+              "libs/tribes-engine/**/*.tsx",
+              "libs/tribes-engine/**/*.spec.ts",
+              "libs/tribes-engine/**/*.spec.tsx",
+              "libs/tribes-engine/**/*.spec.js",
+              "libs/tribes-engine/**/*.spec.jsx",
+              "libs/tribes-engine/**/*.d.ts"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/tribes-engine/jest.config.js",
-            "tsConfig": "libs/tribes-engine/tsconfig.spec.json",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/tribes-engine"]
         }
       }
     }
