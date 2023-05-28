@@ -9,12 +9,14 @@
       "schematics": {},
       "architect": {
         "build": {
-          "builder": "@nrwl/node:webpack",
+          "builder": "@nrwl/webpack:webpack",
           "options": {
             "outputPath": "dist/apps/tribes-api",
             "main": "apps/tribes-api/src/main.ts",
             "tsConfig": "apps/tribes-api/tsconfig.app.json",
-            "assets": ["apps/tribes-api/src/assets"]
+            "assets": ["apps/tribes-api/src/assets"],
+            "target": "node",
+            "compiler": "tsc"
           },
           "configurations": {
             "production": {
@@ -54,7 +56,7 @@
             "jestConfig": "apps/tribes-api/jest.config.ts",
             "passWithNoTests": true
           },
-          "outputs": ["coverage/apps/tribes-api"]
+          "outputs": ["{workspaceRoot}/coverage/apps/tribes-api"]
         }
       },
       "tags": [],
@@ -89,7 +91,7 @@
             "jestConfig": "libs/tribes-engine/jest.config.ts",
             "passWithNoTests": true
           },
-          "outputs": ["coverage/libs/tribes-engine"]
+          "outputs": ["{workspaceRoot}/coverage/libs/tribes-engine"]
         }
       },
       "tags": []
@@ -120,7 +122,7 @@
             "jestConfig": "libs/tribes-model/jest.config.ts",
             "passWithNoTests": true
           },
-          "outputs": ["coverage/libs/tribes-model"]
+          "outputs": ["{workspaceRoot}/coverage/libs/tribes-model"]
         }
       },
       "tags": []
@@ -132,7 +134,7 @@
       "schematics": {},
       "architect": {
         "build": {
-          "builder": "@nrwl/web:webpack",
+          "builder": "@nrwl/webpack:webpack",
           "options": {
             "outputPath": "dist/apps/tribes-web",
             "index": "apps/tribes-web/src/index.html",
@@ -189,7 +191,7 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@nrwl/web:dev-server",
+          "builder": "@nrwl/webpack:dev-server",
           "options": {
             "buildTarget": "tribes-web:build",
             "proxyConfig": "apps/tribes-web/proxy.conf.json"
@@ -227,7 +229,7 @@
             "jestConfig": "apps/tribes-web/jest.config.ts",
             "passWithNoTests": true
           },
-          "outputs": ["coverage/apps/tribes-web"]
+          "outputs": ["{workspaceRoot}/coverage/apps/tribes-web"]
         }
       },
       "tags": [],
