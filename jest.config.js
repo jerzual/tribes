@@ -1,9 +1,8 @@
 module.exports = {
-  transform: {
-    '^.+\\.tsx?$': 'ts-jest',
-  },
-  testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$',
-  testPathIgnorePatterns: ['/dist/', '/node_modules/'],
-  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
-  collectCoverage: true,
+  projects: [
+    '<rootDir>/apps/tribes-web',
+    '<rootDir>/apps/tribes-api',
+    '<rootDir>/libs/tribes-model',
+    '<rootDir>/libs/tribes-engine',
+  ],
 };
