@@ -2,10 +2,7 @@ import { ajax, AjaxResponse } from 'rxjs/ajax';
 import { ofType, Epic } from 'redux-observable';
 import { mergeMap, map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
-import {
-  FETCH_PLAYER_FAILURE,
-  FETCH_PLAYER,
-} from './player.actions';
+import { FETCH_PLAYER_FAILURE, FETCH_PLAYER } from './player.actions';
 
 const fetchPlayerFulfilled = (response) => response.response;
 

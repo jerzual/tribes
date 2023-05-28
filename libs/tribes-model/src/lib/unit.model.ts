@@ -1,4 +1,3 @@
 export interface UnitModel {
-    id: string;
-
+  id: string;
 }

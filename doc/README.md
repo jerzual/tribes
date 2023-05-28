@@ -2,6 +2,6 @@
 
 ## Design document
 
-main 
+main
 
 ## Technical stack

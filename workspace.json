@@ -9,7 +9,7 @@
       "schematics": {},
       "architect": {
         "build": {
-          "builder": "@nrwl/node:build",
+          "builder": "@nrwl/node:webpack",
           "options": {
             "outputPath": "dist/apps/tribes-api",
             "main": "apps/tribes-api/src/main.ts",
@@ -32,7 +32,7 @@
           "outputs": ["{options.outputPath}"]
         },
         "serve": {
-          "builder": "@nrwl/node:execute",
+          "builder": "@nrwl/node:node",
           "options": {
             "buildTarget": "tribes-api:build"
           }
@@ -51,7 +51,7 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "apps/tribes-api/jest.config.js",
+            "jestConfig": "apps/tribes-api/jest.config.ts",
             "passWithNoTests": true
           },
           "outputs": ["coverage/apps/tribes-api"]
@@ -86,7 +86,7 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/tribes-engine/jest.config.js",
+            "jestConfig": "libs/tribes-engine/jest.config.ts",
             "passWithNoTests": true
           },
           "outputs": ["coverage/libs/tribes-engine"]
@@ -117,7 +117,7 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/tribes-model/jest.config.js",
+            "jestConfig": "libs/tribes-model/jest.config.ts",
             "passWithNoTests": true
           },
           "outputs": ["coverage/libs/tribes-model"]
@@ -132,7 +132,7 @@
       "schematics": {},
       "architect": {
         "build": {
-          "builder": "@nrwl/web:build",
+          "builder": "@nrwl/web:webpack",
           "options": {
             "outputPath": "dist/apps/tribes-web",
             "index": "apps/tribes-web/src/index.html",
@@ -177,9 +177,16 @@
                   "with": "apps/tribes-web/src/environments/environment.hmr.ts"
                 }
               ]
+            },
+            "development": {
+              "extractLicenses": false,
+              "optimization": false,
+              "sourceMap": true,
+              "vendorChunk": true
             }
           },
-          "outputs": ["{options.outputPath}"]
+          "outputs": ["{options.outputPath}"],
+          "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@nrwl/web:dev-server",
@@ -190,8 +197,12 @@
           "configurations": {
             "production": {
               "buildTarget": "tribes-web:build:production"
+            },
+            "development": {
+              "buildTarget": "tribes-web:build:development"
             }
-          }
+          },
+          "defaultConfiguration": "development"
         },
         "lint": {
           "builder": "@nrwl/linter:eslint",
@@ -213,7 +224,7 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "apps/tribes-web/jest.config.js",
+            "jestConfig": "apps/tribes-web/jest.config.ts",
             "passWithNoTests": true
           },
           "outputs": ["coverage/apps/tribes-web"]

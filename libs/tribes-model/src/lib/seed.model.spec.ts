@@ -9,8 +9,8 @@ describe('Seed', () => {
   });
   describe('encapsulate RNG', () => {
     it('should provide a random number generator instance', () => {
-        const system: Seed = new Seed();
-        expect(system.rng).toBeDefined();
+      const system: Seed = new Seed();
+      expect(system.rng).toBeDefined();
     });
   });
 });

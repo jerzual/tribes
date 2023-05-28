@@ -1,4 +1,2 @@
 import SeededBuilder from './seeded.builder';
-export class SolarSystemBuilder{
-
-}
+export class SolarSystemBuilder {}

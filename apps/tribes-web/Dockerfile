@@ -1,4 +1,4 @@
-FROM node:14.17.0-buster-slim as node
+FROM node:16.20.0-buster-slim as node
 
 RUN mkdir -p /opt/tribes
 RUN chown 1000:1000 /opt/tribes

@@ -3,7 +3,7 @@ import * as RNG from 'rng-js';
 import { GalaxyModel, Seed } from '@tribes-nx/tribes-model';
 
 const WORLD_SIZE = 256;
-export interface WorldBuilderOptions{
+export interface WorldBuilderOptions {
   size: number;
   seed?: Seed;
 }

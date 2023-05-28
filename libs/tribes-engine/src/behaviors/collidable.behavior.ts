@@ -1,3 +1,1 @@
-export class CollidableBehavior{
-    
-}
+export class CollidableBehavior {}

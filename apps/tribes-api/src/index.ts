@@ -6,10 +6,10 @@ import { Connection, createConnection } from 'typeorm';
 import { MongoConnectionOptions } from 'typeorm/driver/mongodb/MongoConnectionOptions';
 
 const { MONGO_TRIBES_URI, MONGOLAB_URI } = process.env;
-console.log("before",process.env);
+console.log('before', process.env);
 
 dotenv.config();
-console.log("after",process.env);
+console.log('after', process.env);
 // env vars
 const MONGO_HOST =
   MONGO_TRIBES_URI || MONGOLAB_URI || 'mongodb://localhost:5984/tribes';
@@ -35,7 +35,9 @@ const server = createServer({
 });
 
 const main: IO<void> = async () => {
-  await (await server)();
+  await (
+    await server
+  )();
   await connectToDb();
 };
 main();

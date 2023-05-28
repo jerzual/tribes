@@ -1,8 +1,9 @@
 import React, { FunctionComponent } from 'react';
 
-interface GalaxyScreenProps {
+type GalaxyScreenProps = {
   seed: string;
-}
+  children?: React.ReactNode;
+};
 
 export const GalaxyScreen: FunctionComponent<GalaxyScreenProps> = ({
   seed,
