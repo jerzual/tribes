@@ -1,8 +1,8 @@
-import { filter, mapTo } from 'rxjs/operators';
-import { ActionsObservable } from 'redux-observable';
+import { ofType } from 'redux-observable';
+import { map } from 'rxjs/operators';
 
-export const pingEpic$ = (action$: ActionsObservable<{ type: 'PING' }>) =>
+export const pingEpic$ = (action$) =>
   action$.pipe(
-    filter((action) => action.type === 'PING'),
-    mapTo({ type: 'PONG' }),
+    ofType('PING'),
+    map(() => ({ type: 'PONG' })),
   );

@@ -1,0 +1,32 @@
+{
+  "name": "tribes-model",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/tribes-model/src",
+  "projectType": "library",
+  "generators": {},
+  "targets": {
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/tribes-model/**/*.ts",
+          "libs/tribes-model/**/*.spec.ts",
+          "libs/tribes-model/**/*.spec.tsx",
+          "libs/tribes-model/**/*.spec.js",
+          "libs/tribes-model/**/*.spec.jsx",
+          "libs/tribes-model/**/*.d.ts"
+        ]
+      },
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "options": {
+        "jestConfig": "libs/tribes-model/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "outputs": ["{workspaceRoot}/coverage/libs/tribes-model"]
+    }
+  },
+  "tags": []
+}

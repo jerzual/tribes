@@ -1,0 +1,33 @@
+{
+  "name": "tribes-web-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/tribes-web-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nx/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/tribes-web-e2e/cypress.json",
+        "tsConfig": "apps/tribes-web-e2e/tsconfig.e2e.json",
+        "devServerTarget": "tribes-web:serve"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "tribes-web:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/tribes-web-e2e/src/**/*.ts",
+          "apps/tribes-web-e2e/src/**/*.js"
+        ]
+      },
+      "outputs": ["{options.outputFile}"]
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["tribes-web"]
+}

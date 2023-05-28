@@ -1,4 +1,4 @@
-import { combineEpics, ActionsObservable, Epic } from 'redux-observable';
+import { combineEpics, Epic } from 'redux-observable';
 import { catchError } from 'rxjs/operators';
 
 const epics = [];
