@@ -1,4 +1,5 @@
-module.exports = {
+/* eslint-disable */
+export default {
   globals: {
     'ts-jest': { tsconfig: '<rootDir>/tsconfig.spec.json' },
   },
@@ -8,5 +9,5 @@ module.exports = {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'html'],
   coverageDirectory: '../../coverage/libs/tribes-model',
   displayName: 'tribes-model',
-  preset: '../../jest.preset.ts',
+  preset: '../../jest.preset.js',
 };
