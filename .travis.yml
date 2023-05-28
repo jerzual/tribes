@@ -1,7 +1,8 @@
 language: node_js
 node_js:
-  - "14"
-cache: npm
+  - '14'
+cache:
+  npm
   # before_script:
 #  - npm install -g typescript
 before_install:

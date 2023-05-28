@@ -18,10 +18,10 @@ import {
 import { Player } from './entities';
 import { MongoConnectionOptions } from 'typeorm/driver/mongodb/MongoConnectionOptions';
 
-export const ConnectionOptionsToken = createContextToken<
-  MongoConnectionOptions
->('ConnectionOptions');
-export const ConnectionToken = createContextToken<TypeORMConnection>('Connection');
+export const ConnectionOptionsToken =
+  createContextToken<MongoConnectionOptions>('ConnectionOptions');
+export const ConnectionToken =
+  createContextToken<TypeORMConnection>('Connection');
 /*
 export const PlayerRepositoryToken = createContextToken<
   MongoRepository<Player>

@@ -1,10 +1,10 @@
-import React, { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
 import { BehaviorSubject } from 'rxjs';
 
 import { switchMap } from 'rxjs/operators';
 import './app.scss';
 
-import { Route, Link } from 'react-router-dom';
+import { Route, Link, Routes } from 'react-router-dom';
 import { rootEpic } from './state/modules/root.epic';
 import { rootReducer } from './state/modules';
 import { createEpicMiddleware } from 'redux-observable';
@@ -59,35 +59,14 @@ export const App: FunctionComponent = () => {
     <div className="app">
       <Menu></Menu>
       <Board></Board>
-      <Route
-        path="/options"
-        exact
-        render={() => (<ChunkScreen></ChunkScreen>)}>
-          
-        </Route>
-      <Route
-        path="/options"
-        exact
-        render={() => (
-          <Page>
-            <Card>
-              <OptionsScreen></OptionsScreen>
-            </Card>
-          </Page>
-        )}
-      />
-      <Route
-        path="/world"
-        exact
-        render={() => (
-          <Page>
-            <Card>
-              <Link to="/">Click here to go back to root page.</Link>
-            </Card>
-          </Page>
-        )}
-      />
-      {/* END: routes */}
+      <Routes>
+        <Route path="/options" element={<ChunkScreen />}></Route>
+        <Route path="/options" element={<OptionsScreen></OptionsScreen>} />
+        <Route
+          path="/world"
+          element={<Link to="/">Click here to go back to root page.</Link>}
+        />
+      </Routes>
     </div>
   );
 };

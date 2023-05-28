@@ -38,9 +38,9 @@ const connectToDb = async () => {
       port: Number(TRIBES_MONGO_PORT),
       database: 'tribes',
       logging: ['query', 'error', 'debug'],
-     // authMechanism: '',
-     // username: TRIBES_MONGO_USERNAME,
-    //:  password: TRIBES_MONGO_PASSWORD,
+      // authMechanism: '',
+      // username: TRIBES_MONGO_USERNAME,
+      //:  password: TRIBES_MONGO_PASSWORD,
       entities: [
         Player,
         PlanetEntity,
@@ -70,6 +70,8 @@ const server = createServer({
 });
 
 const main: IO<void> = async () => {
-  await (await server)();
+  await (
+    await server
+  )();
 };
 main();

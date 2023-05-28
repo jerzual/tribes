@@ -1,3 +1,1 @@
-export class MovableBehavior{
-    
-}
+export class MovableBehavior {}

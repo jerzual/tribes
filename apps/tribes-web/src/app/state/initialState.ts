@@ -3,7 +3,7 @@ export interface GameState {
   entities: { [id: string]: EntityState };
   interface: UIState;
   world?: any;
-  player: PlayerState,
+  player: PlayerState;
   options?: any;
 }
 export interface EntityState {
@@ -16,15 +16,15 @@ export interface UIState {
   widgets: { [widgetName: string]: boolean };
 }
 
-export interface PlayerState{
-  status: 'unknown' | 'pending' | 'error' | 'loaded',
+export interface PlayerState {
+  status: 'unknown' | 'pending' | 'error' | 'loaded';
   uuid?: string;
 }
 
 export function initialGameState(): GameState {
   return {
     status: 'running',
-    player: {status: 'unknown'},
+    player: { status: 'unknown' },
     entities: {},
     //
     world: {

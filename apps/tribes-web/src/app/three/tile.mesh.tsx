@@ -21,7 +21,8 @@ export const Tile: FunctionComponent<{ position: number[] }> = (props) => {
       scale={active ? [1.5, 1.5, 1.5] : [1, 1, 1]}
       onClick={(e) => setActive(!active)}
       onPointerOver={(e) => setHover(true)}
-      onPointerOut={(e) => setHover(false)}>
+      onPointerOut={(e) => setHover(false)}
+    >
       <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
       <meshStandardMaterial
         attach="material"
