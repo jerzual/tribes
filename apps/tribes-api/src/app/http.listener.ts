@@ -1,4 +1,4 @@
-import { httpListener } from '@marblejs/core';
+import { httpListener } from '@marblejs/http';
 import { logger$ } from '@marblejs/middleware-logger';
 import { bodyParser$ } from '@marblejs/middleware-body';
 import { api$, health$ } from './api.effects';

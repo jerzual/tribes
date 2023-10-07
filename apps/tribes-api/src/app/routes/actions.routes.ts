@@ -1,4 +1,4 @@
-import { r } from '@marblejs/core';
+import { r } from '@marblejs/http';
 import { getActionsEffect } from './actions.effects';
 
 const getActions = r.pipe(

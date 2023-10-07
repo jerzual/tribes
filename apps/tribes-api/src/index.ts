@@ -1,5 +1,5 @@
 import * as dotenv from 'dotenv';
-import { createServer } from '@marblejs/core';
+import { createServer } from '@marblejs/http';
 import { IO } from 'fp-ts/lib/IO';
 import { listener } from './app/http.listener';
 import { Connection, createConnection } from 'typeorm';

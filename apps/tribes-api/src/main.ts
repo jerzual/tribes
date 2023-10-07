@@ -1,4 +1,5 @@
-import { createServer, bindEagerlyTo, bindLazilyTo } from '@marblejs/core';
+import { bindEagerlyTo, bindLazilyTo } from '@marblejs/core';
+import { createServer } from '@marblejs/http';
 import { IO } from 'fp-ts/lib/IO';
 import * as dotenv from 'dotenv';
 dotenv.config();
