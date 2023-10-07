@@ -1,12 +1,11 @@
-import { HttpErrorEffect, HttpRequest, HttpError } from '@marblejs/core';
+import { HttpErrorEffect, HttpRequest, HttpError } from '@marblejs/http';
 import { map } from 'rxjs/operators';
 
 export const error$: HttpErrorEffect = (req$) =>
   req$.pipe(
-    map((entry: { req: HttpRequest<any>; error: HttpError }) => ({
+    map(({ request, error }) => ({
+      request,
       status: 500,
-      body: {
-        error: { trace: entry.error.status, message: entry.error.message },
-      },
+      body: { message: error.message },
     })),
   );

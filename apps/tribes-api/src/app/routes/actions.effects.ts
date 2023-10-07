@@ -1,4 +1,4 @@
-import { HttpEffect } from '@marblejs/core';
+import { HttpEffect } from '@marblejs/http';
 
 export const getActionsEffect: HttpEffect = (req$, _ctx) =>
   req$
