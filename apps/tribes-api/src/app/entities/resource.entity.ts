@@ -1,21 +1,18 @@
-import { Column, Entity, ObjectID, ObjectIdColumn } from 'typeorm';
+import { ColumnType, Generated } from 'kysely';
+
 import { GalaxyEntity } from './galaxy.entity';
 import { PlanetEntity } from './planet.entity';
 
-@Entity()
-export class ResourceEntity {
-  @ObjectIdColumn()
-  public id?: ObjectID;
+export interface ResourceEntity {
+  id?: Generated<number>;
 
-  @Column()
-  public name?: string;
+  name?: string;
 
-  @Column()
-  public position?: [number, number, number];
+  position?: [number, number, number];
 
-  @Column(() => GalaxyEntity)
-  public galaxy?: GalaxyEntity;
+  galaxy?: GalaxyEntity;
 
-  @Column(() => PlanetEntity)
-  public planets?: PlanetEntity[];
+  planets?: PlanetEntity[];
+
+  created_at: ColumnType<Date, string | undefined, never>;
 }

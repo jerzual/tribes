@@ -33,14 +33,13 @@
     "@marblejs/middleware-body": "^4.1.0",
     "@marblejs/middleware-logger": "^4.1.0",
     "@react-three/fiber": "^8.13.0",
-    "canvas": "^2.11.2",
     "dotenv": "^16.0.3",
-    "express": "^4.18.2",
     "fast-simplex-noise": "^3.2.1",
     "fp-ts": "^2.16.0",
-    "mongodb": "^5.5.0",
+    "kysely": "^0.26.3",
     "nx": "^10.0.6",
     "open-simplex-noise": "^2.5.0",
+    "pg": "^8.11.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-is": "18.2.0",
@@ -50,10 +49,8 @@
     "redux-observable": "^2.0.0",
     "reflect-metadata": "^0.1.13",
     "rng-js": "^1.0.1",
-    "rxdb": "^14.12.0",
     "rxjs": "^7.8.1",
-    "three": "^0.152.2",
-    "typeorm": "^0.3.16"
+    "three": "^0.152.2"
   },
   "devDependencies": {
     "@babel/core": "^7.14.5",
@@ -101,6 +98,7 @@
     "sass": "1.62.1",
     "ts-jest": "29.1.0",
     "ts-node": "10.9.1",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "5.1.6"
   }
 }

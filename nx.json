@@ -40,14 +40,6 @@
         "linter": "eslint"
       }
     },
-    "@nrwl/express": {
-      "application": {
-        "linter": "eslint"
-      },
-      "library": {
-        "linter": "eslint"
-      }
-    },
     "@nx/workspace": {
       "library": {
         "linter": "eslint"

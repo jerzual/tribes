@@ -1,15 +1,6 @@
-import { Vector3 } from 'three';
+import { Generated } from 'kysely';
 
-import { Column, Entity, ObjectID, ObjectIdColumn } from 'typeorm';
-
-@Entity()
 export class Player {
-  @ObjectIdColumn()
-  public id?: ObjectID;
-
-  @Column()
+  public id?: Generated<number>;
   public name?: string;
-
-  @Column(() => Vector3)
-  public position?: Vector3;
 }

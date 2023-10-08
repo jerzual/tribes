@@ -1,10 +1,7 @@
-import { Entity, ObjectIdColumn, ObjectID, Column } from 'typeorm';
+import { Generated } from 'kysely';
 
-@Entity()
-export class PlanetEntity {
-  @ObjectIdColumn()
-  public id?: ObjectID;
+export interface PlanetEntity {
+  id?: Generated<string>;
 
-  @Column()
-  public name?: string;
+  name?: string;
 }
