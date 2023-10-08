@@ -4,29 +4,31 @@ import { IO } from 'fp-ts/lib/IO';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
+import { PostgresDialect, Kysely } from 'kysely';
+import { Pool } from 'pg';
 import { listener } from './app/http.listener';
 
 import { Database } from './app/entities';
-import { PostgresDialect, Kysely } from 'kysely';
-import { Pool } from 'pg';
 
-const {
-  TRIBES_DB_HOST,
-  TRIBES_DB_PORT,
-  TRIBES_DB_USERNAME,
-  TRIBES_DB_PASSWORD,
-  TRIBES_API_PORT,
-} = process.env;
 // env vars
-const PORT: number = parseInt(TRIBES_API_PORT, 10) || 3000;
+// write the above assignation on multiple lines
+const TRIBES_DB_HOST: string = process.env.TRIBES_DB_HOST;
+const TRIBES_DB_PORT = process.env.TRIBES_DB_PORT
+  ? parseInt(process.env.TRIBES_DB_PORT, 10)
+  : undefined;
+const TRIBES_DB_USERNAME = process.env.TRIBES_DB_USERNAME;
+const TRIBES_DB_PASSWORD = process.env.TRIBES_DB_PASSWORD;
+const TRIBES_API_PORT: number = process.env.TRIBES_API_PORT
+  ? parseInt(process.env.TRIBES_API_PORT, 10)
+  : 3000;
 
-const dialect = new PostgresDialect({
+const dialect: PostgresDialect = new PostgresDialect({
   pool: new Pool({
-    database: 'test',
+    database: 'tribes',
     host: TRIBES_DB_HOST,
     user: TRIBES_DB_USERNAME,
     password: TRIBES_DB_PASSWORD,
-    port: TRIBES_DB_PORT ? parseInt(TRIBES_DB_PORT, 10) : undefined,
+    port: TRIBES_DB_PORT,
     max: 10,
   }),
 });
@@ -35,12 +37,12 @@ export const db = new Kysely<Database>({
   dialect,
 });
 
-const DatabaseToken = createContextToken<Database>('Database');
+const DB_TOKEN = createContextToken<Database>('Database');
 
 const server = createServer({
-  port: PORT,
+  port: TRIBES_API_PORT,
   listener,
-  dependencies: [bindEagerlyTo(DatabaseToken)(async () => db)],
+  dependencies: [bindEagerlyTo(DB_TOKEN)(() => db)],
 });
 
 const main: IO<void> = async () => {

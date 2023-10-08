@@ -54,7 +54,7 @@
             }
           }
         ],
-        "@typescript-eslint/class-name-casing": "error",
+        "@typescript-eslint/naming-convention": "error",
         "@typescript-eslint/consistent-type-assertions": "error",
         "@typescript-eslint/dot-notation": "error",
         "@typescript-eslint/explicit-member-accessibility": [
@@ -133,7 +133,6 @@
         "import/order": "error",
         "jsdoc/check-alignment": "error",
         "jsdoc/check-indentation": "error",
-        "jsdoc/newline-after-description": "error",
         "max-classes-per-file": "error",
         "new-parens": "error",
         "no-array-constructor": "off",
@@ -164,7 +163,7 @@
         "no-var": "error",
         "object-shorthand": "error",
         "one-var": ["error", "never"],
-        "prefer-arrow/prefer-arrow-functions": "error",
+        "prefer-arrow-callback": "error",
         "prefer-const": "error",
         "radix": "error",
         "require-await": "off",

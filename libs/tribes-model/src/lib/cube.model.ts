@@ -10,7 +10,7 @@ export default class CubeModel {
   public z: number;
   public q: number;
   public r: number;
-  constructor(props) {
+  constructor(props: Partial<CubeModel>) {
     // column
     this.q = props.q;
     // row
