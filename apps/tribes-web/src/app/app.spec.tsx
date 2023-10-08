@@ -1,9 +1,11 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-
+import { mockResizeObserver } from 'jsdom-testing-mocks';
 import { BrowserRouter } from 'react-router-dom';
 
 import App from './app';
+
+mockResizeObserver();
 
 describe('App', () => {
   it('should render successfully', () => {
@@ -23,6 +25,6 @@ describe('App', () => {
       </BrowserRouter>,
     );
 
-    expect(getByText('Welcome to tribes-web!')).toBeTruthy();
+    expect(getByText('TRIBES')).toBeTruthy();
   });
 });

@@ -5,7 +5,14 @@
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
-      "plugins": ["rxjs", "jsdoc", "node", "import"],
+      "plugins": ["rxjs", "jsdoc", "n", "import"],
+      "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:prettier/recommended",
+        "plugin:rxjs/recommended",
+        "plugin:jsdoc/recommended"
+      ],
       "rules": {
         "@nx/enforce-module-boundaries": [
           "error",
@@ -54,9 +61,26 @@
             }
           }
         ],
-        "@typescript-eslint/naming-convention": "error",
+        "@typescript-eslint/naming-convention": [
+          "error",
+          // booleans should start with is, should, has, can, did, will
+          {
+            "selector": "variable",
+            "types": ["boolean"],
+            "format": ["PascalCase"],
+            "prefix": ["is", "should", "has", "can", "did", "will"]
+          },
+          // interfaces should not start with I
+          {
+            "selector": "interface",
+            "format": ["PascalCase"],
+            "custom": {
+              "regex": "^I[A-Z]",
+              "match": false
+            }
+          }
+        ],
         "@typescript-eslint/consistent-type-assertions": "error",
-        "@typescript-eslint/dot-notation": "error",
         "@typescript-eslint/explicit-member-accessibility": [
           "error",
           {
@@ -83,10 +107,6 @@
         "@typescript-eslint/no-non-null-assertion": "warn",
         "@typescript-eslint/no-this-alias": "error",
         "@typescript-eslint/no-unnecessary-type-assertion": "error",
-        "@typescript-eslint/no-unsafe-assignment": "error",
-        "@typescript-eslint/no-unsafe-call": "error",
-        "@typescript-eslint/no-unsafe-member-access": "error",
-        "@typescript-eslint/no-unsafe-return": "error",
         "@typescript-eslint/no-unused-expressions": "error",
         "@typescript-eslint/no-unused-vars": "warn",
         "@typescript-eslint/no-use-before-define": "off",
