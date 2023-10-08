@@ -60,7 +60,7 @@ export const App: FunctionComponent = () => {
       <Menu></Menu>
       <Board></Board>
       <Routes>
-        <Route path="/options" element={<ChunkScreen />}></Route>
+        <Route path="/" element={<ChunkScreen />}></Route>
         <Route path="/options" element={<OptionsScreen></OptionsScreen>} />
         <Route
           path="/world"
