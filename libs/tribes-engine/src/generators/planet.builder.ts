@@ -9,17 +9,18 @@ export const AVAILABLE_SIZE_FACTORS = [1, 4, 9, 20];
  * Created by jibhaine on 04/09/2016.
  */
 export default class PlanetBuilder extends SeededBuilder {
-  constructor(options: any, private planet: PlanetModel) {
-    super(options);
-    this.planet = planet;
+  private planet: Partial<PlanetModel>;
+  constructor() {
+    super();
+    this.planet = {};
   }
   public setRandomSize() {
-    // nada
+    return this;
   }
   public fillWithChunks() {
-    // nada
+    return this;
   }
-  public build() {
-    return this.planet;
+  public build(): PlanetModel {
+    return this.planet as PlanetModel;
   }
 }

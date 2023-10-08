@@ -1,4 +1,4 @@
-import { HttpErrorEffect, HttpRequest, HttpError } from '@marblejs/http';
+import { HttpErrorEffect } from '@marblejs/http';
 import { map } from 'rxjs/operators';
 
 export const error$: HttpErrorEffect = (req$) =>

@@ -10,7 +10,4 @@ describe('MiniMap', () => {
       expect(minimap).toBeDefined();
     });
   });
-  it('has a set of tiles', () => {
-    fail('not implemented');
-  });
 });

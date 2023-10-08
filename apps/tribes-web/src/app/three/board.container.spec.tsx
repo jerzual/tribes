@@ -1,7 +1,10 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 
+import { mockResizeObserver } from 'jsdom-testing-mocks';
 import { Board } from './board.container';
+
+mockResizeObserver();
 
 describe('Board', () => {
   let board;
