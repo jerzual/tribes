@@ -1,0 +1,20 @@
+# local continuous integration end to end tests
+# based on docker
+name: end-to-end
+
+on:
+  push:
+    branches:
+      - 'main'
+  pull_request:
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Docker compose build
+        run: docker compose build
