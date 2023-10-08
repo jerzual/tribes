@@ -1,12 +1,11 @@
 import { r } from '@marblejs/http';
-import { mapTo, map, tap } from 'rxjs/operators';
-import { ConnectionOptions, Connection, ConnectionToken } from './db.tokens';
+import { map } from 'rxjs/operators';
 
 export const api$ = r.pipe(
   r.matchPath('/'),
   r.matchType('GET'),
   r.useEffect((req$) =>
-    req$.pipe(mapTo({ body: { message: 'Hello, world!' } })),
+    req$.pipe(map(() => ({ body: { message: 'Hello, world!' } }))),
   ),
 );
 
@@ -14,6 +13,6 @@ export const health$ = r.pipe(
   r.matchPath('/health'),
   r.matchType('GET'),
   r.useEffect((req$) =>
-    req$.pipe(mapTo({ body: { health: { status: 'up' } } })),
+    req$.pipe(map(() => ({ body: { health: { status: 'up' } } }))),
   ),
 );

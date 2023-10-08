@@ -1,7 +1,5 @@
-import { Entity, ObjectID, ObjectIdColumn } from 'typeorm';
+import { Generated } from 'kysely';
 
-@Entity()
-export class MessageEntity {
-  @ObjectIdColumn()
-  public id?: ObjectID;
+export interface MessageEntity {
+  id?: Generated<string>
 }

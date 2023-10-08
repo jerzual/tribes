@@ -1,4 +1,4 @@
-import { bindEagerlyTo, bindLazilyTo } from '@marblejs/core';
+import { bindEagerlyTo, createContextToken } from '@marblejs/core';
 import { createServer } from '@marblejs/http';
 import { IO } from 'fp-ts/lib/IO';
 import * as dotenv from 'dotenv';
@@ -6,68 +6,41 @@ dotenv.config();
 
 import { listener } from './app/http.listener';
 
-import { Connection, createConnection, Migration } from 'typeorm';
-import { MongoConnectionOptions } from 'typeorm/driver/mongodb/MongoConnectionOptions';
-import {
-  Player,
-  PlanetEntity,
-  GalaxyEntity,
-  UnitEntity,
-  ResourceEntity,
-  MessageEntity,
-  BuildingEntity,
-} from './app/entities';
-import { ConnectionToken, ConnectionOptionsToken } from './app/db.tokens';
+import { Database } from './app/entities';
+import { PostgresDialect, Kysely } from 'kysely';
+import { Pool } from 'pg';
 
 const {
-  TRIBES_MONGO_HOST,
-  TRIBES_MONGO_PORT,
-  TRIBES_MONGO_USERNAME,
-  TRIBES_MONGO_PASSWORD,
+  TRIBES_DB_HOST,
+  TRIBES_DB_PORT,
+  TRIBES_DB_USERNAME,
+  TRIBES_DB_PASSWORD,
   TRIBES_API_PORT,
 } = process.env;
 // env vars
 const PORT: number = parseInt(TRIBES_API_PORT, 10) || 3000;
 
-const connectToDb = async () => {
-  console.log('connecting to ', TRIBES_MONGO_HOST);
-  try {
-    const connection: Connection = await createConnection({
-      type: 'mongodb',
-      name: 'mongo',
-      host: TRIBES_MONGO_HOST,
-      port: Number(TRIBES_MONGO_PORT),
-      database: 'tribes',
-      logging: ['query', 'error', 'debug'],
-      // authMechanism: '',
-      // username: TRIBES_MONGO_USERNAME,
-      //:  password: TRIBES_MONGO_PASSWORD,
-      entities: [
-        Player,
-        PlanetEntity,
-        GalaxyEntity,
-        UnitEntity,
-        ResourceEntity,
-        MessageEntity,
-        BuildingEntity,
-      ],
-    } as MongoConnectionOptions);
-    const migration: Migration[] = await connection.runMigrations();
-    migration.forEach((migration) => {
-      console.log(migration.name);
-    });
-  } catch (err) {
-    console.error('error connectiong to db', err);
-    process.exit();
-  }
-};
+const dialect = new PostgresDialect({
+  pool: new Pool({
+    database: 'test',
+    host: TRIBES_DB_HOST,
+    user: TRIBES_DB_USERNAME,
+    password: TRIBES_DB_PASSWORD,
+    port: TRIBES_DB_PORT ? parseInt(TRIBES_DB_PORT, 10) : undefined,
+    max: 10,
+  }),
+});
+
+export const db = new Kysely<Database>({
+  dialect,
+});
+
+const DatabaseToken = createContextToken<Database>('Database');
+
 const server = createServer({
   port: PORT,
-  hostname: '127.0.0.1',
   listener,
-  dependencies: [
-    bindEagerlyTo(ConnectionToken)(async () => await (await connectToDb)()),
-  ],
+  dependencies: [bindEagerlyTo(DatabaseToken)(async () => db)],
 });
 
 const main: IO<void> = async () => {

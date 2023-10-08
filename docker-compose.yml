@@ -1,75 +1,52 @@
 version: '3.0'
 services:
-  tribes-mongo:
-    image: mongo
+  tribes-postgres:
+    image: postgres:16.0-alpine
     ports:
-      - 27017:27017
+      - 5432:5432
     restart: always
     env_file:
       - .env
     environment:
-      #- MONGO_INITDB_ROOT_USERNAME=${TRIBES_MONGO_USERNAME}
-      #- MONGO_INITDB_ROOT_PASSWORD=${TRIBES_MONGO_PASSWORD}
-      - MONGO_INITDB_DATABASE=tribes
-      - MONGO_PORT=27017
+      - POSTGRES_USER=${TRIBES_DB_USERNAME}
+      - POSTGRES_PASSWORD=${TRIBES_DB_PASSWORD}
     volumes:
-      - ./data/mongo:/data/db
-    networks:
-      private:
-
-  tribes-mongo-express:
-    image: mongo-express
-    restart: always
-    env_file:
-      - .env
-    ports:
-      - 8081:8081
-    environment:
-      - ME_CONFIG_MONGODB_SERVER=tribes-mongo
-      - ME_CONFIG_MONGODB_PORT=27017
-      - ME_CONFIG_MONGODB_ENABLE_ADMIN=true
-      - ME_CONFIG_MONGODB_AUTH_DATABASE=admin
-      - ME_CONFIG_MONGODB_AUTH_USERNAME=${TRIBES_MONGO_USERNAME}
-      - ME_CONFIG_MONGODB_AUTH_PASSWORD=${TRIBES_MONGO_PASSWORD}
-      - ME_CONFIG_BASICAUTH_USERNAME=${TRIBES_MONGOEXPRESS_USER}
-      - ME_CONFIG_BASICAUTH_PASSWORD=${TRIBES_MONGOEXPRESS_PASSWORD}
-    depends_on:
-      - tribes-mongo
+      - ./data/postgres:/var/lib/posgresql/data
     networks:
       private:
 
   tribes-api:
-    build: apps/tribes-api
-    # context: "."
+    build:
+      context: ./
+      dockerfile: apps/tribes-api/Dockerfile
     environment:
       - NODE_ENV=production
-      - TRIPES_API_HOST=${TRIBES_API_HOST}
-      - TRIPES_API_PORT=3000
+      - TRIBES_DB_HOST=${TRIBES_DB_HOST}
+      - TRIBES_DB_PORT=${TRIBES_DB_PORT}
+      - TRIBES_DB_USERNAME=${TRIBES_DB_USERNAME}
+      - TRIBES_DB_PASSWORD=${TRIBES_DB_PASSWORD}
+      - TRIBES_API_HOST=${TRIBES_API_HOST}
+      - TRIBES_API_PORT=3000
     env_file:
       - .env
-    # volumes:
-    #   - ./dist/apps/tribes-api:/opt/tribes/dist
     ports:
       - 3000:3000
     depends_on:
-      - tribes-mongo
+      - tribes-postgres
     networks:
       public:
       private:
+
   tribes-web:
-    build: apps/tribes-web
-    # context: "."
+    build:
+      context: ./
+      dockerfile: apps/tribes-web/Dockerfile
     environment:
       - NODE_ENV=production
-      - TRIBES_WEB_HOST=http://www{TRIBES_PREFIX:}/
-      - TRIBES_WEB_PORT=5000
-    # volumes:
-    #   - ./dist/apps/tribes-web:/opt/tribes/dist
     ports:
       - 8080:8080
     depends_on:
       - tribes-api
-    command: npx http-server dist/
 networks:
   public:
     driver: 'bridge'

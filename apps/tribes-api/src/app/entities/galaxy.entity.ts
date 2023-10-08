@@ -1,23 +1,13 @@
-import { Column, Entity, ObjectID, ObjectIdColumn } from 'typeorm';
+import { Generated } from 'kysely';
 
-@Entity()
-export class GalaxyEntity {
-  @ObjectIdColumn()
-  public id: ObjectID;
+export interface GalaxyEntity {
+  id: Generated<number>;
 
-  @Column()
-  public seed?: string;
+  seed?: string;
 
-  @Column()
-  public name?: string;
+  name?: string;
 
-  @Column()
-  public desc?: string;
+  desc?: string;
 
-  @Column()
-  public chunks?: [number, number, number];
-
-  constructor(id: ObjectID) {
-    this.id = id;
-  }
+  chunks?: [number, number, number];
 }
