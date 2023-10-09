@@ -1,5 +1,5 @@
 'use strict';
-import * as seedrandom from 'seedrandom';
+import seedrandom from 'seedrandom';
 export const SEED_LENGTH = 5;
 /**
  * Encapsulate a seed string and an RNG
@@ -23,6 +23,9 @@ export class Seed {
     }
 
     return randomSeed;
+  }
+  public random(): number {
+    return this.rng.double();
   }
 }
 export default Seed;

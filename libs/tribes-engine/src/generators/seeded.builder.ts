@@ -5,7 +5,7 @@ import { Seed } from '@tribes-nx/tribes-model';
 export default class SeededBuilder {
   protected rng: Seed;
   withSeed(seed: string) {
-    this.rng = new Seed(seed).rng;
+    this.rng = new Seed(seed);
     return this;
   }
 }
