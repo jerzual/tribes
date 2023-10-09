@@ -1,0 +1,62 @@
+{
+  "name": "tribes-api",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/tribes-api/src",
+  "projectType": "application",
+  "prefix": "tribes-api",
+  "generators": {},
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "options": {
+        "outputPath": "dist/apps/tribes-api",
+        "main": "apps/tribes-api/src/main.ts",
+        "tsConfig": "apps/tribes-api/tsconfig.app.json",
+        "assets": ["apps/tribes-api/src/assets"],
+        "target": "node",
+        "compiler": "tsc"
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false,
+          "fileReplacements": [
+            {
+              "replace": "apps/tribes-api/src/environments/environment.ts",
+              "with": "apps/tribes-api/src/environments/environment.prod.ts"
+            }
+          ]
+        }
+      },
+      "outputs": ["{options.outputPath}"]
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "options": {
+        "buildTarget": "tribes-api:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/tribes-api/**/*.ts",
+          "apps/tribes-api/**/*.spec.ts",
+          "apps/tribes-api/**/*.d.ts"
+        ]
+      },
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "options": {
+        "jestConfig": "apps/tribes-api/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "outputs": ["{workspaceRoot}/coverage/apps/tribes-api"]
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["tribes-model", "tribes-engine"]
+}

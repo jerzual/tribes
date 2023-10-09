@@ -1,0 +1,53 @@
+version: '3.0'
+services:
+  tribes-postgres:
+    image: postgres:16.0-alpine
+    ports:
+      - 5432:5432
+    restart: always
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_USER=${TRIBES_DB_USERNAME}
+      - POSTGRES_PASSWORD=${TRIBES_DB_PASSWORD}
+    volumes:
+      - ./data/postgres:/var/lib/posgresql/data
+    networks:
+      private:
+
+  tribes-api:
+    build:
+      context: ./
+      dockerfile: apps/tribes-api/Dockerfile
+    environment:
+      - NODE_ENV=production
+      - TRIBES_DB_HOST=${TRIBES_DB_HOST}
+      - TRIBES_DB_PORT=${TRIBES_DB_PORT}
+      - TRIBES_DB_USERNAME=${TRIBES_DB_USERNAME}
+      - TRIBES_DB_PASSWORD=${TRIBES_DB_PASSWORD}
+      - TRIBES_API_HOST=${TRIBES_API_HOST}
+      - TRIBES_API_PORT=3000
+    env_file:
+      - .env
+    ports:
+      - 3000:3000
+    depends_on:
+      - tribes-postgres
+    networks:
+      public:
+      private:
+
+  tribes-web:
+    build:
+      context: ./
+      dockerfile: apps/tribes-web/Dockerfile
+    environment:
+      - NODE_ENV=production
+    ports:
+      - 8080:8080
+    depends_on:
+      - tribes-api
+networks:
+  public:
+    driver: 'bridge'
+  private:

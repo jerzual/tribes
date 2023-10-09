@@ -1,0 +1,11 @@
+.card {
+  background: var(--color-trans-dark);
+  color: var(--color-white);
+  .inner {
+    margin: 2em;
+  }
+}
+.card {
+  background: white;
+  box-shadow: 0 0 1em rgba(0, 0, 0, 0.5);
+}
