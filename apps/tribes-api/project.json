@@ -14,7 +14,8 @@
         "tsConfig": "apps/tribes-api/tsconfig.app.json",
         "assets": ["apps/tribes-api/src/assets"],
         "target": "node",
-        "compiler": "tsc"
+        "compiler": "tsc",
+        "webpackConfig": "apps/tribes-api/webpack.config.js"
       },
       "configurations": {
         "production": {
@@ -38,21 +39,13 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "apps/tribes-api/**/*.ts",
-          "apps/tribes-api/**/*.spec.ts",
-          "apps/tribes-api/**/*.d.ts"
-        ]
-      },
+      "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "apps/tribes-api/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "apps/tribes-api/jest.config.ts"
       },
       "outputs": ["{workspaceRoot}/coverage/apps/tribes-api"]
     }
