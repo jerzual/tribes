@@ -18,13 +18,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "apps/tribes-web-e2e/src/**/*.ts",
-          "apps/tribes-web-e2e/src/**/*.js"
-        ]
-      },
+      "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"]
     }
   },

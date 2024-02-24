@@ -79,27 +79,13 @@
       "defaultConfiguration": "development"
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "apps/tribes-web/**/*.js",
-          "apps/tribes-web/**/*.jsx",
-          "apps/tribes-web/**/*.ts",
-          "apps/tribes-web/**/*.tsx",
-          "apps/tribes-web/**/*.spec.ts",
-          "apps/tribes-web/**/*.spec.tsx",
-          "apps/tribes-web/**/*.spec.js",
-          "apps/tribes-web/**/*.spec.jsx",
-          "apps/tribes-web/**/*.d.ts"
-        ]
-      },
+      "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "apps/tribes-web/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "apps/tribes-web/jest.config.ts"
       },
       "outputs": ["{workspaceRoot}/coverage/apps/tribes-web"]
     }

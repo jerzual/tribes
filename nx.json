@@ -1,16 +1,6 @@
 {
-  "npmScope": "tribes-nx",
   "affected": {
     "defaultBase": "master"
-  },
-  "tasksRunnerOptions": {
-    "default": {
-      "runner": "nx/tasks-runners/default",
-      "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"],
-        "parallel": 3
-      }
-    }
   },
   "targetDependencies": {
     "build": [
@@ -19,9 +9,6 @@
         "projects": "dependencies"
       }
     ]
-  },
-  "cli": {
-    "defaultCollection": "@nx/react"
   },
   "defaultProject": "tribes-web",
   "generators": {
@@ -101,16 +88,30 @@
   },
   "targetDefaults": {
     "build": {
-      "inputs": ["production", "^production"]
+      "inputs": ["production", "^production"],
+      "cache": true
     },
     "e2e": {
-      "inputs": ["default", "^production"]
+      "inputs": ["default", "^production"],
+      "cache": true
     },
-    "test": {
-      "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"]
+    "@nx/jest:jest": {
+      "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"],
+      "cache": true,
+      "options": {
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
     },
-    "lint": {
-      "inputs": ["default", "{workspaceRoot}/.eslintrc.json"]
+    "@nx/eslint:lint": {
+      "inputs": ["default", "{workspaceRoot}/.eslintrc.json"],
+      "cache": true
     }
-  }
+  },
+  "parallel": 3
 }
