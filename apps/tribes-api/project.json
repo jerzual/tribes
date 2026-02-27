@@ -9,28 +9,17 @@
   "generators": {},
   "targets": {
     "build": {
-      "executor": "@nx/webpack:webpack",
+      "executor": "@nx/esbuild:esbuild",
       "options": {
         "outputPath": "dist/apps/tribes-api",
         "main": "apps/tribes-api/src/main.ts",
         "tsConfig": "apps/tribes-api/tsconfig.app.json",
         "assets": ["apps/tribes-api/src/assets"],
-        "target": "node",
-        "compiler": "tsc",
-        "webpackConfig": "apps/tribes-api/webpack.config.js"
-      },
-      "configurations": {
-        "production": {
-          "optimization": true,
-          "extractLicenses": true,
-          "inspect": false,
-          "fileReplacements": [
-            {
-              "replace": "apps/tribes-api/src/environments/environment.ts",
-              "with": "apps/tribes-api/src/environments/environment.prod.ts"
-            }
-          ]
-        }
+        "platform": "node",
+        "format": ["esm"],
+        "bundle": true,
+        "thirdParty": false,
+        "generatePackageJson": true
       },
       "outputs": ["{options.outputPath}"]
     },
@@ -45,10 +34,7 @@
       "outputs": ["{options.outputFile}"]
     },
     "test": {
-      "executor": "@nx/jest:jest",
-      "options": {
-        "jestConfig": "apps/tribes-api/jest.config.ts"
-      },
+      "executor": "@nx/vitest:test",
       "outputs": ["{workspaceRoot}/coverage/apps/tribes-api"]
     }
   }

@@ -12,17 +12,17 @@ import { Database } from './app/entities';
 
 // env vars
 // write the above assignation on multiple lines
-const TRIBES_DB_HOST: string = process.env.TRIBES_DB_HOST;
+const TRIBES_DB_HOST = process.env.TRIBES_DB_HOST;
 const TRIBES_DB_PORT = process.env.TRIBES_DB_PORT
   ? parseInt(process.env.TRIBES_DB_PORT, 10)
   : undefined;
 const TRIBES_DB_USERNAME = process.env.TRIBES_DB_USERNAME;
 const TRIBES_DB_PASSWORD = process.env.TRIBES_DB_PASSWORD;
-const TRIBES_API_PORT: number = process.env.TRIBES_API_PORT
+const TRIBES_API_PORT = process.env.TRIBES_API_PORT
   ? parseInt(process.env.TRIBES_API_PORT, 10)
   : 3000;
 
-const dialect: PostgresDialect = new PostgresDialect({
+const dialect = new PostgresDialect({
   pool: new Pool({
     database: 'tribes',
     host: TRIBES_DB_HOST,
@@ -45,9 +45,7 @@ const server = createServer({
   dependencies: [bindEagerlyTo(DB_TOKEN)(() => db)],
 });
 
-const main: IO<void> = async () => {
-  await (
-    await server
-  )();
+const main: IO<void> = () => {
+  void server.then((s) => s());
 };
 main();

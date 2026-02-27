@@ -8,67 +8,37 @@
   "generators": {},
   "targets": {
     "build": {
-      "executor": "@nx/webpack:webpack",
+      "executor": "@nx/vite:build",
       "options": {
-        "outputPath": "dist/apps/tribes-web",
-        "index": "apps/tribes-web/src/index.html",
-        "main": "apps/tribes-web/src/main.tsx",
-        "polyfills": "apps/tribes-web/src/polyfills.ts",
-        "tsConfig": "apps/tribes-web/tsconfig.app.json",
-        "assets": [
-          "apps/tribes-web/src/favicon.ico",
-          "apps/tribes-web/src/assets"
-        ],
-        "styles": ["apps/tribes-web/src/styles.scss"],
-        "scripts": [],
-        "webpackConfig": "@nx/react/plugins/webpack"
+        "outputPath": "dist/apps/tribes-web"
       },
       "configurations": {
         "production": {
-          "fileReplacements": [
-            {
-              "replace": "apps/tribes-web/src/environments/environment.ts",
-              "with": "apps/tribes-web/src/environments/environment.prod.ts"
-            }
-          ],
-          "optimization": true,
-          "outputHashing": "all",
-          "sourceMap": false,
-          "extractCss": true,
-          "namedChunks": false,
-          "extractLicenses": true,
-          "vendorChunk": false,
-          "budgets": [
-            {
-              "type": "initial",
-              "maximumWarning": "2mb",
-              "maximumError": "5mb"
-            }
-          ]
-        },
-        "livereload": {
-          "fileReplacements": [
-            {
-              "replace": "apps/tribes-web/src/environments/environment.ts",
-              "with": "apps/tribes-web/src/environments/environment.hmr.ts"
-            }
-          ]
+          "mode": "production"
         },
         "development": {
-          "extractLicenses": false,
-          "optimization": false,
-          "sourceMap": true,
-          "vendorChunk": true
+          "mode": "development"
         }
       },
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production"
     },
     "serve": {
-      "executor": "@nx/webpack:dev-server",
+      "executor": "nx:run-commands",
       "options": {
-        "buildTarget": "tribes-web:build",
-        "proxyConfig": "apps/tribes-web/proxy.conf.json"
+        "commands": ["nx serve tribes-api", "nx dev-server tribes-web --configuration={args.configuration}"],
+        "parallel": true
+      },
+      "configurations": {
+        "production": {},
+        "development": {}
+      },
+      "defaultConfiguration": "development"
+    },
+    "dev-server": {
+      "executor": "@nx/vite:dev-server",
+      "options": {
+        "buildTarget": "tribes-web:build"
       },
       "configurations": {
         "production": {
@@ -85,10 +55,7 @@
       "outputs": ["{options.outputFile}"]
     },
     "test": {
-      "executor": "@nx/jest:jest",
-      "options": {
-        "jestConfig": "apps/tribes-web/jest.config.ts"
-      },
+      "executor": "@nx/vitest:test",
       "outputs": ["{workspaceRoot}/coverage/apps/tribes-web"]
     }
   }
