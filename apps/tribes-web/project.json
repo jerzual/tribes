@@ -24,18 +24,6 @@
       "defaultConfiguration": "production"
     },
     "serve": {
-      "executor": "nx:run-commands",
-      "options": {
-        "commands": ["nx serve tribes-api", "nx dev-server tribes-web --configuration={args.configuration}"],
-        "parallel": true
-      },
-      "configurations": {
-        "production": {},
-        "development": {}
-      },
-      "defaultConfiguration": "development"
-    },
-    "dev-server": {
       "executor": "@nx/vite:dev-server",
       "options": {
         "buildTarget": "tribes-web:build"
