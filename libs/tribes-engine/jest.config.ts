@@ -1,5 +1,5 @@
 /* eslint-disable */
-export default {
+module.exports = {
   transform: {
     '^.+\\.[tj]sx?$': [
       'babel-jest',

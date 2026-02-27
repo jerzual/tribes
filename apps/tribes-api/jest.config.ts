@@ -1,5 +1,5 @@
 /* eslint-disable */
-export default {
+module.exports = {
   globals: {},
   coverageDirectory: '../../coverage/apps/tribes-api',
   displayName: 'tribes-api',

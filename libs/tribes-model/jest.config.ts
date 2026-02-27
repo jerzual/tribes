@@ -1,5 +1,5 @@
 /* eslint-disable */
-export default {
+module.exports = {
   globals: {},
   transform: {
     '^.+\\.[tj]sx?$': ['ts-jest', { tsconfig: '<rootDir>/tsconfig.spec.json' }],

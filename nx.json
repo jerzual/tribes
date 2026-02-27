@@ -1,16 +1,4 @@
 {
-  "packageManager": "pnpm",
-  "affected": {
-    "defaultBase": "master"
-  },
-  "targetDependencies": {
-    "build": [
-      {
-        "target": "build",
-        "projects": "dependencies"
-      }
-    ]
-  },
   "defaultProject": "tribes-web",
   "generators": {
     "@nrwl/next": {
@@ -72,9 +60,7 @@
   "namedInputs": {
     "default": ["{projectRoot}/**/*", "sharedGlobals"],
     "sharedGlobals": [
-      "{workspaceRoot}/workspace.json",
       "{workspaceRoot}/tsconfig.base.json",
-      "{workspaceRoot}/tslint.json",
       "{workspaceRoot}/nx.json",
       "{workspaceRoot}/babel.config.json"
     ],
@@ -114,5 +100,6 @@
       "cache": true
     }
   },
-  "parallel": 3
+  "parallel": 3,
+  "defaultBase": "master"
 }

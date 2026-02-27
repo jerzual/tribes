@@ -3,4 +3,3 @@
  *
  * See: https://github.com/zloirock/core-js#babel
  */
-import 'regenerator-runtime/runtime';

@@ -3,6 +3,8 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/tribes-web/src",
   "projectType": "application",
+  "tags": [],
+  "implicitDependencies": ["tribes-model", "tribes-engine"],
   "generators": {},
   "targets": {
     "build": {
@@ -89,7 +91,5 @@
       },
       "outputs": ["{workspaceRoot}/coverage/apps/tribes-web"]
     }
-  },
-  "tags": [],
-  "implicitDependencies": ["tribes-model", "tribes-engine"]
+  }
 }
