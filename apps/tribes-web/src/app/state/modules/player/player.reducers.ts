@@ -1,17 +1,15 @@
-import { Action } from 'redux';
-import { v4 } from 'uuid';
+import { nanoid } from 'nanoid';
 import {
   FETCH_PLAYER,
   FETCH_PLAYER_SUCCESS,
   FETCH_PLAYER_FAILURE,
-  PlayerActionTypes,
 } from './player.actions';
 
 export function fetchPlayerReducer(state, action) {
   if (!state) {
     return {
       userAgent: navigator.userAgent,
-      uuid: v4(),
+      uuid: nanoid(),
     };
   }
   switch (action.type) {
