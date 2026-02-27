@@ -1,8 +1,8 @@
 import { r } from '@marblejs/http';
-import { getActionsEffect } from './actions.effects';
+import { getActionsEffect$ } from './actions.effects';
 
 export const getActions = r.pipe(
   r.matchPath('/api/actions'),
   r.matchType('GET'),
-  r.useEffect(getActionsEffect),
+  r.useEffect(getActionsEffect$),
 );

@@ -7,5 +7,8 @@ import { PlanetModel } from './planet.model';
 export const GALAXY_SIZE = 255;
 
 export class GalaxyModel {
-  constructor(public seed = '', public planets: PlanetModel[] = []) {}
+  constructor(
+    public seed = '',
+    public planets: PlanetModel[] = [],
+  ) {}
 }

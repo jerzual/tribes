@@ -21,7 +21,7 @@ export default class HexModel {
   public radius: number;
   /**
    * Init with   { radius, coords:{ x,y,z}}
-   * @param props
+   * @param props - hex properties including radius and coords
    */
   constructor(props) {
     this.coords = new Vector3(props.coords);

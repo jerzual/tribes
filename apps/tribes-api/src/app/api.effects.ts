@@ -1,5 +1,5 @@
 import { r } from '@marblejs/http';
-import { map } from 'rxjs/operators';
+import { map } from 'rxjs';
 
 export const api$ = r.pipe(
   r.matchPath('/'),

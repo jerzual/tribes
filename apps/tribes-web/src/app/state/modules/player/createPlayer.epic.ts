@@ -1,6 +1,6 @@
 import { ajax } from 'rxjs/ajax';
 import { ofType, Epic } from 'redux-observable';
-import { mergeMap, map, catchError } from 'rxjs/operators';
+import { mergeMap, map, catchError } from 'rxjs';
 import { of } from 'rxjs';
 import { FETCH_PLAYER_FAILURE, FETCH_PLAYER } from './player.actions';
 

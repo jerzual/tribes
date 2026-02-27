@@ -23,10 +23,9 @@ export default class CubeModel {
 
   /**
    * Creates a new Cube from coordinates.
-   *
-   * @param q
-   * @param r
-   * @returns {Cube}
+   * @param q - column coordinate
+   * @param r - row coordinate
+   * @returns a new CubeModel instance
    */
   public static fromCartesian(q, r) {
     return new CubeModel({ q, r });

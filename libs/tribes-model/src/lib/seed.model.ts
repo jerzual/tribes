@@ -12,8 +12,9 @@ export class Seed {
 
   /**
    * Generates a Math.random() human-readable based Seed.
-   * @param rng
-   * @param rng.random
+   * @param rng - random number generator object
+   * @param rng.random - function returning a random number
+   * @returns a random alphanumeric string
    */
   public static randomString(rng: { random: () => number }): string {
     const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';

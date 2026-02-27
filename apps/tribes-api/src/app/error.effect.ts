@@ -1,5 +1,5 @@
 import { HttpErrorEffect } from '@marblejs/http';
-import { map } from 'rxjs/operators';
+import { map } from 'rxjs';
 
 export const error$: HttpErrorEffect = (req$) =>
   req$.pipe(

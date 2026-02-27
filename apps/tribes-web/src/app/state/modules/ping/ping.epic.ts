@@ -1,5 +1,5 @@
 import { ofType } from 'redux-observable';
-import { map } from 'rxjs/operators';
+import { map } from 'rxjs';
 
 export const pingEpic$ = (action$) =>
   action$.pipe(
