@@ -1,11 +1,7 @@
-import React, { Component } from 'react';
+import React, { FunctionComponent } from 'react';
 
-export class SectorScreen extends Component<any, any> {
-  public render() {
-    return (
-      <div>
-        <h1>Sector</h1>
-      </div>
-    );
-  }
-}
+export const SectorScreen: FunctionComponent = () => (
+  <div>
+    <h1>Sector</h1>
+  </div>
+);

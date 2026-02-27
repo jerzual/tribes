@@ -5,6 +5,12 @@ import {
   FETCH_PLAYER_FAILURE,
 } from './player.actions';
 
+/**
+ * Reducer for player state.
+ * @param state - current player state
+ * @param action - dispatched action
+ * @returns updated player state
+ */
 export function fetchPlayerReducer(state, action) {
   if (!state) {
     return {

@@ -2,16 +2,13 @@ import React, { FunctionComponent } from 'react';
 import { Link } from 'react-router-dom';
 import './menu.component.scss';
 
-export interface MenuProps {
-  match?: any;
-}
 export interface MenuItem {
   name: string;
   path: string;
   key: string;
   action?: string;
 }
-export const Menu: FunctionComponent<MenuProps> = (props: MenuProps) => {
+export const Menu: FunctionComponent = () => {
   const items: MenuItem[] = [
     {
       key: '1',
@@ -38,7 +35,7 @@ export const Menu: FunctionComponent<MenuProps> = (props: MenuProps) => {
       action: 'QUIT_GAME',
     },
   ];
-  const renderMenuItem = (item: MenuItem, match?: any) => {
+  const renderMenuItem = (item: MenuItem) => {
     const { name, path, key } = item;
     return (
       <li id={'menu' + key} key={key}>
@@ -50,7 +47,7 @@ export const Menu: FunctionComponent<MenuProps> = (props: MenuProps) => {
   return (
     <nav id="menu">
       <h1 className="title">TRIBES</h1>
-      <ul>{items.map(renderMenuItem, props.match)}</ul>
+      <ul>{items.map(renderMenuItem)}</ul>
     </nav>
   );
 };

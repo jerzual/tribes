@@ -2,17 +2,17 @@ export interface GameState {
   status: 'paused' | 'running';
   entities: { [id: string]: EntityState };
   interface: UIState;
-  world?: any;
+  world?: WorldState;
   player: PlayerState;
-  options?: any;
+  options?: OptionsState;
 }
 export interface EntityState {
   behaviors?: string[];
-  attributes?: any;
+  attributes?: Record<string, unknown>;
 }
 export interface UIState {
   loading?: boolean;
-  selectedUnits?: any[];
+  selectedUnits?: unknown[];
   widgets: { [widgetName: string]: boolean };
 }
 
@@ -21,6 +21,27 @@ export interface PlayerState {
   uuid?: string;
 }
 
+export interface WorldState {
+  defaultTile: {
+    radius: number;
+    column: number;
+    row: number;
+    center: { x: number; y: number; z: number };
+    color: number[];
+    units: unknown[];
+    buildings: unknown[];
+  };
+  tiles: unknown[];
+}
+
+export interface OptionsState {
+  godMode: boolean;
+  difficulty: string;
+}
+
+/**
+ * @returns the initial game state
+ */
 export function initialGameState(): GameState {
   return {
     status: 'running',
