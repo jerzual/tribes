@@ -1,5 +1,5 @@
 /* eslint-disable */
-export default {
+module.exports = {
   transform: {
     '^(?!.*\\.(js|jsx|ts|tsx|css|json)$)': '@nx/react/plugins/jest',
     '^.+\\.[tj]sx?$': [

@@ -4,6 +4,8 @@
   "sourceRoot": "apps/tribes-api/src",
   "projectType": "application",
   "prefix": "tribes-api",
+  "tags": [],
+  "implicitDependencies": ["tribes-model", "tribes-engine"],
   "generators": {},
   "targets": {
     "build": {
@@ -49,7 +51,5 @@
       },
       "outputs": ["{workspaceRoot}/coverage/apps/tribes-api"]
     }
-  },
-  "tags": [],
-  "implicitDependencies": ["tribes-model", "tribes-engine"]
+  }
 }
