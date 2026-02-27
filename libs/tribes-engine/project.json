@@ -11,10 +11,7 @@
       "outputs": ["{options.outputFile}"]
     },
     "test": {
-      "executor": "@nx/jest:jest",
-      "options": {
-        "jestConfig": "libs/tribes-engine/jest.config.ts"
-      },
+      "executor": "@nx/vitest:test",
       "outputs": ["{workspaceRoot}/coverage/libs/tribes-engine"]
     }
   }

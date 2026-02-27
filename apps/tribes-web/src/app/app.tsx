@@ -5,11 +5,11 @@ import { switchMap } from 'rxjs/operators';
 import './app.scss';
 
 import { Route, Link, Routes } from 'react-router-dom';
-import { rootEpic } from './state/modules/root.epic';
-import { rootReducer } from './state/modules';
 import { createEpicMiddleware } from 'redux-observable';
 import { compose, applyMiddleware, createStore } from 'redux';
-import { environment } from '../environments/environment.prod';
+import { environment } from '../environments/environment';
+import { rootEpic } from './state/modules/root.epic';
+import { rootReducer } from './state/modules';
 import { Board } from './three/board.container';
 import { Card } from './ui/card.layout';
 import { Menu } from './ui/menu.component';
@@ -39,13 +39,11 @@ if (environment.livereload) {
 
   epicMiddleware.run(hotReloadingEpic);
 
-  if (module['hot']) {
-    module['hot'].accept('./epics/root.epic', () => {
-      const nextRootEpic = import('./state/modules/root.epic').then(
-        (module) => {
-          epic$.next(module.rootEpic);
-        },
-      );
+  if (import.meta.hot) {
+    import.meta.hot.accept('./state/modules/root.epic', (module) => {
+      if (module) {
+        epic$.next(module.rootEpic);
+      }
     });
   }
 }

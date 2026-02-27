@@ -61,14 +61,13 @@
     "default": ["{projectRoot}/**/*", "sharedGlobals"],
     "sharedGlobals": [
       "{workspaceRoot}/tsconfig.base.json",
-      "{workspaceRoot}/nx.json",
-      "{workspaceRoot}/babel.config.json"
+      "{workspaceRoot}/nx.json"
     ],
     "production": [
       "default",
       "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
       "!{projectRoot}/tsconfig.spec.json",
-      "!{projectRoot}/jest.config.[jt]s",
+      "!{projectRoot}/vitest.config.[jt]s",
       "!{projectRoot}/.eslintrc.json",
       "!{projectRoot}/src/test-setup.[jt]s"
     ]
@@ -82,18 +81,9 @@
       "inputs": ["default", "^production"],
       "cache": true
     },
-    "@nx/jest:jest": {
-      "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"],
-      "cache": true,
-      "options": {
-        "passWithNoTests": true
-      },
-      "configurations": {
-        "ci": {
-          "ci": true,
-          "codeCoverage": true
-        }
-      }
+    "@nx/vitest:test": {
+      "inputs": ["default", "^production"],
+      "cache": true
     },
     "@nx/eslint:lint": {
       "inputs": ["default", "{workspaceRoot}/.eslintrc.json"],

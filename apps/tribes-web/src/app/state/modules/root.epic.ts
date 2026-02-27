@@ -5,8 +5,9 @@ const epics = [];
 
 export const rootEpic: Epic = (action$, store$, dependencies) =>
   combineEpics(...epics)(action$, store$, dependencies).pipe(
-    catchError((error, source) => {
+    catchError((error: unknown, source$) => {
+      // eslint-disable-next-line no-console
       console.error(error);
-      return source;
+      return source$;
     }),
   );

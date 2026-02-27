@@ -1,3 +1,5 @@
+/* eslint-disable max-classes-per-file */
+
 /**
  * A system should know about all the entities.
  */

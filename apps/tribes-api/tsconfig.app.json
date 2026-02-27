@@ -2,12 +2,8 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
-    "types": [
-      "node",
-      "@nx/react/typings/cssmodule.d.ts",
-      "@nx/react/typings/image.d.ts"
-    ]
+    "types": ["node"]
   },
-  "exclude": ["**/*.spec.ts", "**/*.test.ts", "jest.config.ts"],
+  "exclude": ["**/*.spec.ts", "**/*.test.ts", "vitest.config.ts"],
   "include": ["**/*.ts"]
 }
