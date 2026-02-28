@@ -5,9 +5,9 @@ export const SEED_LENGTH = 5;
  * Encapsulate a seed string and an RNG
  */
 export class Seed {
-  public rng: seedrandom.PRNG;
+  private prng: seedrandom.PRNG;
   constructor(private seed: string = Seed.randomString(Math)) {
-    this.rng = seedrandom(seed);
+    this.prng = seedrandom(seed);
   }
 
   /**
@@ -25,8 +25,48 @@ export class Seed {
 
     return randomSeed;
   }
+
+  /**
+   * Returns a random float in [0, 1)
+   * @returns a random float
+   */
   public random(): number {
-    return this.rng.double();
+    return this.prng.double();
+  }
+
+  /**
+   * Returns a random integer in [0, max)
+   * @param max - exclusive upper bound
+   * @returns a random integer
+   */
+  public randomInt(max: number): number {
+    return Math.floor(this.random() * max);
+  }
+
+  /**
+   * Returns a random integer in [min, max] (inclusive)
+   * @param min - inclusive lower bound
+   * @param max - inclusive upper bound
+   * @returns a random integer
+   */
+  public randomIntRange(min: number, max: number): number {
+    return min + Math.floor(this.random() * (max - min + 1));
+  }
+
+  /**
+   * Picks a random element from an array
+   * @param array - the array to pick from
+   * @returns a random element
+   */
+  public pick<T>(array: T[]): T {
+    return array[this.randomInt(array.length)];
+  }
+
+  /**
+   * Derives a deterministic child seed string
+   * @returns a child seed string
+   */
+  public deriveChildSeed(): string {
+    return Seed.randomString(this);
   }
 }
-export default Seed;

@@ -6,12 +6,13 @@ export enum PlanetType {
   Earth,
 }
 
-export class PlanetModel {
+export interface PlanetModel {
   seed: string;
   name: string;
   description: string;
   type: PlanetType;
   size: number;
   details: number;
-  mainColor?: string;
+  mainColor: string;
+  orbitalRadius: number;
 }

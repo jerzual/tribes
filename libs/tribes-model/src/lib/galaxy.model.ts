@@ -1,14 +1,8 @@
-import { PlanetModel } from './planet.model';
+import { SectorModel } from './sector.model';
 
-/**
- * Created by jibhaine on 04/09/2016.
- * A galaxy is a cube divided by in sectors
- */
-export const GALAXY_SIZE = 255;
+export const GALAXY_GRID_SIZE = 16;
 
-export class GalaxyModel {
-  constructor(
-    public seed = '',
-    public planets: PlanetModel[] = [],
-  ) {}
+export interface GalaxyModel {
+  seed: string;
+  sectors: SectorModel[][];
 }
