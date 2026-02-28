@@ -4,5 +4,7 @@ export * from './galaxy.model';
 export * from './hex.model';
 export * from './planet.model';
 export * from './resource.model';
+export * from './sector.model';
 export * from './seed.model';
+export * from './solar-system.model';
 export * from './unit.model';
