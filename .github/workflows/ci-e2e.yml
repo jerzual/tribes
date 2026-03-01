@@ -1,3 +1,4 @@
+---
 # local continuous integration end to end tests
 # based on docker
 name: end-to-end
@@ -7,6 +8,10 @@ on:
     branches:
       - 'main'
   pull_request:
+
+concurrency:
+  group: ci-e2e-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   docker:
