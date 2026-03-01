@@ -1,6 +1,7 @@
+---
 services:
   tribes-postgres:
-    image: postgres:16.0-alpine
+    image: postgres:18.3-alpine
     ports:
       - 5432:5432
     restart: always
