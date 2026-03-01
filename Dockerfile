@@ -1,4 +1,4 @@
-FROM node:22-bookworm-slim as base
+FROM node:24-alpine AS base
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
@@ -23,7 +23,7 @@ RUN pnpm exec nx run-many -t build
 
 FROM base AS api
 COPY --from=prod-deps /app/node_modules /app/node_modules
-COPY --from=build /app/dist/tribes-api /app/dist/tribes-api
+COPY --from=build /app/dist/apps/tribes-api /app/dist/apps/tribes-api
 EXPOSE 4000
 
 USER node
@@ -33,7 +33,7 @@ CMD ["node", "dist/apps/tribes-api/main.js"]
 
 FROM base AS web
 COPY --from=prod-deps /app/node_modules /app/node_modules
-COPY --from=build /app/dist/tribes-web /app/dist/tribes-web
+COPY --from=build /app/dist/apps/tribes-web /app/dist/apps/tribes-web
 
 USER node
 
