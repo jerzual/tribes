@@ -1,3 +1,4 @@
+---
 name: affected-build
 
 on:
@@ -5,27 +6,198 @@ on:
     branches:
       - main
   pull_request:
+
+concurrency:
+  group: ci-build-${{ github.ref }}
+  cancel-in-progress: true
+
 env:
-  NODE_VERSION: 22
+  NODE_VERSION: 24
+
+permissions:
+  pull-requests: write
+
 jobs:
-  main:
+  setup:
     runs-on: ubuntu-latest
+    outputs:
+      nx_base: ${{ steps.set-shas.outputs.base }}
+      nx_head: ${{ steps.set-shas.outputs.head }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - name: Install pnpm
-        uses: pnpm/action-setup@v3
-        with:
-          version: 9
+        uses: pnpm/action-setup@v4
       - name: Use Node.js ${{ env.NODE_VERSION }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'pnpm'
-      - uses: nrwl/nx-set-shas@v3
-      - run: pnpm install
-      - run: pnpx nx format:check
-      - run: pnpx nx affected -t lint --parallel=3
-      - run: pnpx nx affected -t test --parallel=3
-      - run: pnpx nx affected -t build --parallel=3
+      - name: Install dependencies
+        run: pnpm install
+      - name: Set Nx SHAs
+        id: set-shas
+        uses: nrwl/nx-set-shas@v4
+      - name: Cache Nx
+        uses: actions/cache@v4
+        with:
+          path: .nx/cache
+          key: nx-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.sha }}
+          restore-keys: |
+            nx-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-
+
+  format:
+    needs: [setup]
+    runs-on: ubuntu-latest
+    env:
+      NX_BASE: ${{ needs.setup.outputs.nx_base }}
+      NX_HEAD: ${{ needs.setup.outputs.nx_head }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+      - name: Use Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+      - name: Restore Nx cache
+        uses: actions/cache/restore@v4
+        with:
+          path: .nx/cache
+          key: nx-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.sha }}
+          restore-keys: |
+            nx-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-
+      - name: Install dependencies
+        run: pnpm install
+      - name: Check formatting
+        run: pnpm exec nx format:check
+
+  lint:
+    needs: [setup]
+    runs-on: ubuntu-latest
+    env:
+      NX_BASE: ${{ needs.setup.outputs.nx_base }}
+      NX_HEAD: ${{ needs.setup.outputs.nx_head }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+      - name: Use Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+      - name: Restore Nx cache
+        uses: actions/cache/restore@v4
+        with:
+          path: .nx/cache
+          key: nx-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.sha }}
+          restore-keys: |
+            nx-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-
+      - name: Install dependencies
+        run: pnpm install
+      - name: Lint affected projects
+        run: pnpm exec nx affected -t lint --parallel=3
+
+  test:
+    needs: [setup]
+    runs-on: ubuntu-latest
+    env:
+      NX_BASE: ${{ needs.setup.outputs.nx_base }}
+      NX_HEAD: ${{ needs.setup.outputs.nx_head }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+      - name: Use Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+      - name: Restore Nx cache
+        uses: actions/cache/restore@v4
+        with:
+          path: .nx/cache
+          key: nx-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.sha }}
+          restore-keys: |
+            nx-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-
+      - name: Install dependencies
+        run: pnpm install
+      - name: Test affected projects
+        run: pnpm exec nx affected -t test --parallel=3
+
+  build:
+    needs: [setup]
+    runs-on: ubuntu-latest
+    env:
+      NX_BASE: ${{ needs.setup.outputs.nx_base }}
+      NX_HEAD: ${{ needs.setup.outputs.nx_head }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+      - name: Use Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+      - name: Restore Nx cache
+        uses: actions/cache/restore@v4
+        with:
+          path: .nx/cache
+          key: nx-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.sha }}
+          restore-keys: |
+            nx-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-
+      - name: Install dependencies
+        run: pnpm install
+      - name: Build affected projects
+        run: pnpm exec nx affected -t build --parallel=3
+
+  results:
+    if: always() && github.event_name == 'pull_request'
+    needs: [format, lint, test, build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Find existing comment
+        uses: peter-evans/find-comment@v3
+        id: find-comment
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-author: 'github-actions[bot]'
+          body-includes: '<!-- ci-build-results -->'
+      - name: Build summary
+        id: summary
+        uses: actions/github-script@v7
+        env:
+          FORMAT_RESULT: ${{ needs.format.result }}
+          LINT_RESULT: ${{ needs.lint.result }}
+          TEST_RESULT: ${{ needs.test.result }}
+          BUILD_RESULT: ${{ needs.build.result }}
+        with:
+          script: |
+            const icon = (s) => s === 'success' ? ':white_check_mark:' : s === 'skipped' ? ':next_track_button:' : ':x:';
+            const rows = [
+              ['Format', process.env.FORMAT_RESULT],
+              ['Lint',   process.env.LINT_RESULT],
+              ['Test',   process.env.TEST_RESULT],
+              ['Build',  process.env.BUILD_RESULT],
+            ].map(([job, r]) => `| ${job} | ${icon(r)} ${r} |`).join('\n');
+            const body = `<!-- ci-build-results -->\n## CI Results\n\n| Job | Status |\n|-----|--------|\n${rows}\n`;
+            core.setOutput('body', body);
+      - name: Create or update comment
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          comment-id: ${{ steps.find-comment.outputs.comment-id }}
+          issue-number: ${{ github.event.pull_request.number }}
+          body: ${{ steps.summary.outputs.body }}
+          edit-mode: replace

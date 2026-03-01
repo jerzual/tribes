@@ -2,6 +2,7 @@
   "name": "tribes",
   "version": "0.0.0",
   "private": true,
+  "packageManager": "pnpm@10.30.1",
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist/apps/tribes-web/",
