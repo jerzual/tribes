@@ -196,7 +196,10 @@ export default [
   },
   ...nxEslintPlugin.configs['flat/typescript'].map((config) => {
     const { '@typescript-eslint': _, ...restPlugins } = config.plugins || {};
-    const result = { ...config, files: ['**/*.ts', '**/*.tsx', '**/*.cts', '**/*.mts'] };
+    const result = {
+      ...config,
+      files: ['**/*.ts', '**/*.tsx', '**/*.cts', '**/*.mts'],
+    };
     if (Object.keys(restPlugins).length > 0) {
       result.plugins = restPlugins;
     } else {
