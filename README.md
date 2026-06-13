@@ -38,3 +38,16 @@ https://en.wikipedia.org/wiki/Geodesic_grid
 - [redux](https://redux.js.org/) + [rxjs](https://github.com/ReactiveX/rxjs) = [redux-observable](https://redux-observable.js.org/ for state management
 - [marblejs](https://docs.marblejs.com/), [kysely](https://kysely.dev/docs/) and [postgres](https://www.npmjs.com/package/pg) for persistence and api backend
 - [nx](https://nx.dev/) and [docker](https://docs.docker.com) to build and run all
+
+
+## Working with agents
+
+An [AGENTS.md](./AGENTS.md) file is set up in the repository, if you want to use a LLM to code, create a symbolic link to it :
+
+```bash
+ln -s AGENTS.md CLAUDE.md                       # claude code
+ln -s AGENTS.md cursorrules.md                  # cursor
+ln -s AGENTS.md .github/copilot-instructions.md # copilot
+ln -s AGENTS.md guidelines.md                   # jetbrains IDEs / windsurf
+ln -s AGENTS.md .instructions.md                # VSCode
+```

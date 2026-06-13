@@ -95,3 +95,11 @@ Thumbs.db
 
 .nx/cache
 .nx/workspace-data
+
+# Agentic configs
+CLAUDE.md
+cursorrules.md
+.github/copilot-instructions.md
+guidelines.md
+.instructions.md
+
