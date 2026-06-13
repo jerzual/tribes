@@ -96,5 +96,5 @@
     }
   },
   "parallel": 3,
-  "defaultBase": "master"
+  "defaultBase": "main"
 }
