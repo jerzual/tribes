@@ -103,3 +103,7 @@ cursorrules.md
 guidelines.md
 .instructions.md
 
+
+.claude/worktrees
+.nx/polygraph
+.nx/self-healing
