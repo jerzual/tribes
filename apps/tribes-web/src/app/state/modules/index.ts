@@ -1,5 +1,5 @@
-import { combineEpics } from 'redux-observable';
 import { combineReducers } from 'redux';
+import { combineEpics } from 'redux-observable';
 
 import ping, { pingEpic$ } from './ping';
 import { fetchPlayerEpic$, fetchPlayerReducer } from './player';

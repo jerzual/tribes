@@ -19,8 +19,8 @@ pnpm start                            # serve tribes-web (vite dev server)
 nx serve tribes-api                   # run the backend (needs postgres + .env)
 nx build <project>                    # build one project; nx run-many -t build for all
 nx test <project>                     # run a project's vitest suite
-nx lint <project>                     # eslint a project
-pnpm format / pnpm format:check       # prettier (nx format:write / format:check)
+nx lint <project>                     # oxlint then eslint on a project
+pnpm format / pnpm format:check       # oxfmt (not `nx format`, which only runs prettier)
 nx e2e tribes-web-e2e                 # cypress e2e (boots tribes-web)
 nx affected -t lint test build        # only what changed (mirrors CI)
 ```
@@ -68,8 +68,14 @@ Two apps and two libraries; apps depend on both libs (declared via `implicitDepe
 - File naming is suffix-based by role: `*.model.ts`, `*.builder.ts`, `*.entity.ts`,
   `*.epic.ts`, `*.reducer.ts`, `*.actions.ts`, `*.component.tsx`, `*.screen.tsx`,
   `*.mesh.tsx`, `*.system.ts`, `*.behavior.ts`. Tests are colocated `*.spec.ts(x)`.
-- ESLint flat config (`eslint.config.mjs`) with `rxjs-x` rules enforced as errors and
-  `max-classes-per-file` (disable inline when intentionally grouping classes, as in `system.ts`).
+- Linting is hybrid. oxlint (`.oxlintrc.json`, type-aware via `oxlint-tsgolint`) runs most rules,
+  including `@nx/enforce-module-boundaries` and `max-classes-per-file` (disable inline when
+  intentionally grouping classes, as in `system.ts`). ESLint (`eslint.config.mjs`) only keeps
+  what oxlint can't run: type-aware `rxjs-x` rules (e.g. `finnish`), `naming-convention`,
+  `member-ordering`. Both run in each project's `lint` target (defined in `nx.json`).
+- Formatting is oxfmt (`.oxfmtrc.json`, single quotes, sorted imports).
+- `tsconfig.base.json` must stay tsgo-compatible for type-aware oxlint: no `baseUrl`,
+  `moduleResolution: bundler`, `paths` starting with `./`.
 - Front-end and engine both depend on `three` (Vector3 used for hex coordinates).
 - New cross-app shared types belong in `tribes-model`; new game logic in `tribes-engine` — keep
   apps thin.

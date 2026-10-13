@@ -12,19 +12,13 @@ export const MAX_SOLAR_SYSTEMS = 24;
  * @param galaxyGridSize - size of the galaxy grid
  * @returns the number of solar systems
  */
-export function computeSolarSystemCount(
-  row: number,
-  col: number,
-  galaxyGridSize: number,
-): number {
+export function computeSolarSystemCount(row: number, col: number, galaxyGridSize: number): number {
   const center = (galaxyGridSize - 1) / 2;
   const distance = Math.sqrt((row - center) ** 2 + (col - center) ** 2);
   const maxDistance = Math.sqrt(2 * center ** 2);
   const normalized = distance / maxDistance;
 
-  return Math.round(
-    MAX_SOLAR_SYSTEMS - normalized * (MAX_SOLAR_SYSTEMS - MIN_SOLAR_SYSTEMS),
-  );
+  return Math.round(MAX_SOLAR_SYSTEMS - normalized * (MAX_SOLAR_SYSTEMS - MIN_SOLAR_SYSTEMS));
 }
 
 /**
@@ -51,9 +45,7 @@ export function buildSector(
     solarSystemSeeds.push(rng.deriveChildSeed());
   }
 
-  const solarSystems = solarSystemSeeds.map((ssSeed) =>
-    buildSolarSystem(ssSeed),
-  );
+  const solarSystems = solarSystemSeeds.map((ssSeed) => buildSolarSystem(ssSeed));
 
   return {
     seed,

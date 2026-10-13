@@ -39,7 +39,6 @@ https://en.wikipedia.org/wiki/Geodesic_grid
 - [marblejs](https://docs.marblejs.com/), [kysely](https://kysely.dev/docs/) and [postgres](https://www.npmjs.com/package/pg) for persistence and api backend
 - [nx](https://nx.dev/) and [docker](https://docs.docker.com) to build and run all
 
-
 ## Working with agents
 
 An [AGENTS.md](./AGENTS.md) file is set up in the repository, if you want to use a LLM to code, create a symbolic link to it :

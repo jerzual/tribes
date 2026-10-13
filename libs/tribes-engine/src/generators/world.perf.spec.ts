@@ -14,19 +14,13 @@ describe('world generation performance', () => {
 
     const sectors = galaxy.sectors
       .flat()
-      .map((stub) =>
-        buildSector(stub.seed, stub.row, stub.col, GALAXY_GRID_SIZE),
-      );
+      .map((stub) => buildSector(stub.seed, stub.row, stub.col, GALAXY_GRID_SIZE));
 
     const elapsed = performance.now() - start;
 
-    const totalSolarSystems = sectors.reduce(
-      (sum, s) => sum + s.solarSystems.length,
-      0,
-    );
+    const totalSolarSystems = sectors.reduce((sum, s) => sum + s.solarSystems.length, 0);
     const totalPlanets = sectors.reduce(
-      (sum, s) =>
-        sum + s.solarSystems.reduce((ps, ss) => ps + ss.planets.length, 0),
+      (sum, s) => sum + s.solarSystems.reduce((ps, ss) => ps + ss.planets.length, 0),
       0,
     );
 

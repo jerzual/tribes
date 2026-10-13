@@ -28,9 +28,7 @@ export function buildSolarSystem(seed: string): SolarSystemModel {
     planetSeeds.push(rng.deriveChildSeed());
   }
 
-  const planets = planetSeeds.map((planetSeed, index) =>
-    buildPlanet(planetSeed, index),
-  );
+  const planets = planetSeeds.map((planetSeed, index) => buildPlanet(planetSeed, index));
 
   return {
     seed,

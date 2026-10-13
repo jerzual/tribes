@@ -1,14 +1,14 @@
 import { bindEagerlyTo, createContextToken } from '@marblejs/core';
 import { createServer } from '@marblejs/http';
-import { IO } from 'fp-ts/lib/IO';
 import * as dotenv from 'dotenv';
+import { IO } from 'fp-ts/lib/IO';
 dotenv.config();
 
 import { PostgresDialect, Kysely } from 'kysely';
 import { Pool } from 'pg';
-import { listener } from './app/http.listener';
 
 import { Database } from './app/entities';
+import { listener } from './app/http.listener';
 
 // env vars
 // write the above assignation on multiple lines

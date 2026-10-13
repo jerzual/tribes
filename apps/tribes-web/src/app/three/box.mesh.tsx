@@ -1,5 +1,5 @@
-import React, { FunctionComponent, useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
+import React, { FunctionComponent, useRef, useState } from 'react';
 import { Mesh, Vector3 } from 'three';
 
 export const Box: FunctionComponent<{ position: number[] }> = (props) => {
@@ -28,10 +28,7 @@ export const Box: FunctionComponent<{ position: number[] }> = (props) => {
       onPointerOut={() => setHover(false)}
     >
       <boxGeometry args={[1, 1, 1]} />
-      <meshStandardMaterial
-        attach="material"
-        color={isHovered ? 'hotpink' : 'orange'}
-      />
+      <meshStandardMaterial attach="material" color={isHovered ? 'hotpink' : 'orange'} />
     </mesh>
   );
 };
