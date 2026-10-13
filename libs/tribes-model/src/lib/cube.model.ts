@@ -31,8 +31,6 @@ export default class CubeModel {
     return new CubeModel({ q, r });
   }
   public static distance(a, b) {
-    return (
-      (Math.abs(a.x - b.x) + Math.abs(a.y - b.y) + Math.abs(a.z - b.z)) / 2
-    );
+    return (Math.abs(a.x - b.x) + Math.abs(a.y - b.y) + Math.abs(a.z - b.z)) / 2;
   }
 }

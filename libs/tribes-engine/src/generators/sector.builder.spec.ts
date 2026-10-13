@@ -1,8 +1,4 @@
-import {
-  buildSector,
-  MIN_SOLAR_SYSTEMS,
-  MAX_SOLAR_SYSTEMS,
-} from './sector.builder';
+import { buildSector, MIN_SOLAR_SYSTEMS, MAX_SOLAR_SYSTEMS } from './sector.builder';
 
 describe('buildSector', () => {
   const gridSize = 16;
@@ -25,12 +21,8 @@ describe('buildSector', () => {
     for (let row = 0; row < gridSize; row += 5) {
       for (let col = 0; col < gridSize; col += 5) {
         const sector = buildSector(`R${row}C${col}`, row, col, gridSize);
-        expect(sector.solarSystems.length).toBeGreaterThanOrEqual(
-          MIN_SOLAR_SYSTEMS,
-        );
-        expect(sector.solarSystems.length).toBeLessThanOrEqual(
-          MAX_SOLAR_SYSTEMS,
-        );
+        expect(sector.solarSystems.length).toBeGreaterThanOrEqual(MIN_SOLAR_SYSTEMS);
+        expect(sector.solarSystems.length).toBeLessThanOrEqual(MAX_SOLAR_SYSTEMS);
       }
     }
   });
@@ -43,9 +35,7 @@ describe('buildSector', () => {
     const centerSector = buildSector('CENTR', centerRow, centerCol, gridSize);
     const cornerSector = buildSector('CORNR', 0, 0, gridSize);
 
-    expect(centerSector.solarSystems.length).toBeGreaterThan(
-      cornerSector.solarSystems.length,
-    );
+    expect(centerSector.solarSystems.length).toBeGreaterThan(cornerSector.solarSystems.length);
   });
 
   it('assigns unique seeds to each solar system', () => {

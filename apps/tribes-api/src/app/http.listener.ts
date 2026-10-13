@@ -1,6 +1,7 @@
 import { httpListener } from '@marblejs/http';
-import { logger$ } from '@marblejs/middleware-logger';
 import { bodyParser$ } from '@marblejs/middleware-body';
+import { logger$ } from '@marblejs/middleware-logger';
+
 import { api$, health$ } from './api.effects';
 import { error$ } from './error.effect';
 

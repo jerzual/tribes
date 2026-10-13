@@ -1,5 +1,6 @@
-import React, { FunctionComponent } from 'react';
 import { Canvas } from '@react-three/fiber';
+import React, { FunctionComponent } from 'react';
+
 import { Box } from './box.mesh';
 export interface BoardProps {
   width?: number;

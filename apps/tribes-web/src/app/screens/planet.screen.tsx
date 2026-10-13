@@ -3,9 +3,7 @@ interface PlanetScreenProps {
   seed?: string;
   children: Element;
 }
-export const PlanetScreen: FunctionComponent<PlanetScreenProps> = (
-  props: PlanetScreenProps,
-) => {
+export const PlanetScreen: FunctionComponent<PlanetScreenProps> = (props: PlanetScreenProps) => {
   const { seed } = props;
   return (
     <div>

@@ -1,29 +1,26 @@
 import { FunctionComponent } from 'react';
-import { BehaviorSubject } from 'rxjs';
+import { Route, Link, Routes } from 'react-router-dom';
+import { compose, applyMiddleware, createStore } from 'redux';
 
-import { switchMap } from 'rxjs';
 import './app.scss';
 
-import { Route, Link, Routes } from 'react-router-dom';
 import { createEpicMiddleware } from 'redux-observable';
-import { compose, applyMiddleware, createStore } from 'redux';
+import { BehaviorSubject } from 'rxjs';
+import { switchMap } from 'rxjs';
+
 import { environment } from '../environments/environment';
-import { rootEpic$ } from './state/modules/root.epic';
+import { ChunkScreen } from './screens/chunk.screen';
+import OptionsScreen from './screens/options.screen';
 import { rootReducer } from './state/modules';
+import { rootEpic$ } from './state/modules/root.epic';
 import { Board } from './three/board.container';
 import { Menu } from './ui/menu.component';
-import OptionsScreen from './screens/options.screen';
-import { ChunkScreen } from './screens/chunk.screen';
 
 export const epicMiddleware = createEpicMiddleware();
-const composeEnhancers =
-  window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__'] || compose;
+const composeEnhancers = window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__'] || compose;
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const store = createStore(
-  rootReducer,
-  composeEnhancers(applyMiddleware(epicMiddleware)),
-);
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(epicMiddleware)));
 
 epicMiddleware.run(rootEpic$);
 
@@ -34,9 +31,7 @@ if (environment.livereload) {
   // call and subscribe to the new one because of
   // how switchMap works
   const hotReloadingEpic$ = (actions$, state$, deps) =>
-    epic$.pipe(
-      switchMap((currentEpic$) => currentEpic$(actions$, state$, deps)),
-    );
+    epic$.pipe(switchMap((currentEpic$) => currentEpic$(actions$, state$, deps)));
 
   epicMiddleware.run(hotReloadingEpic$);
 
@@ -61,10 +56,7 @@ export const App: FunctionComponent = () => {
       <Routes>
         <Route path="/" element={<ChunkScreen />}></Route>
         <Route path="/options" element={<OptionsScreen></OptionsScreen>} />
-        <Route
-          path="/world"
-          element={<Link to="/">Click here to go back to root page.</Link>}
-        />
+        <Route path="/world" element={<Link to="/">Click here to go back to root page.</Link>} />
       </Routes>
     </div>
   );

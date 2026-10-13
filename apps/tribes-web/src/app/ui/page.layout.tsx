@@ -1,4 +1,5 @@
 import React, { FunctionComponent } from 'react';
+
 import './page.layout.scss';
 export type PageProps = {
   children?: React.ReactNode;

@@ -4,9 +4,7 @@ export interface ChunkProps {
   leftOffset?: number;
   topOffset?: number;
 }
-export const ChunkScreen: FunctionComponent<ChunkProps> = (
-  props: ChunkProps,
-) => {
+export const ChunkScreen: FunctionComponent<ChunkProps> = (props: ChunkProps) => {
   const { id } = props;
   return (
     <div>

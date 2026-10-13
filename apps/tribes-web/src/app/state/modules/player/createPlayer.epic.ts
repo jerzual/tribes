@@ -1,11 +1,11 @@
-import { ajax } from 'rxjs/ajax';
 import { ofType, Epic } from 'redux-observable';
 import { mergeMap, map, catchError } from 'rxjs';
 import { of } from 'rxjs';
+import { ajax } from 'rxjs/ajax';
+
 import { FETCH_PLAYER_FAILURE, FETCH_PLAYER } from './player.actions';
 
-const fetchPlayerFulfilled = (response: { response: unknown }) =>
-  response.response;
+const fetchPlayerFulfilled = (response: { response: unknown }) => response.response;
 
 export const fetchPlayerEpic$: Epic = (action$) =>
   action$.pipe(

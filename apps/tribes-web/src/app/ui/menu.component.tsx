@@ -1,5 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { Link } from 'react-router-dom';
+
 import './menu.component.scss';
 
 export interface MenuItem {

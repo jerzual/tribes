@@ -1,8 +1,4 @@
-import {
-  buildSolarSystem,
-  MIN_PLANETS,
-  MAX_PLANETS,
-} from './solar-system.builder';
+import { buildSolarSystem, MIN_PLANETS, MAX_PLANETS } from './solar-system.builder';
 
 describe('buildSolarSystem', () => {
   it('produces a deterministic result for the same seed', () => {
@@ -47,9 +43,7 @@ describe('buildSolarSystem', () => {
   it('has planets with increasing orbital radii', () => {
     const ss = buildSolarSystem('ORBT1');
     for (let i = 1; i < ss.planets.length; i++) {
-      expect(ss.planets[i].orbitalRadius).toBeGreaterThan(
-        ss.planets[i - 1].orbitalRadius,
-      );
+      expect(ss.planets[i].orbitalRadius).toBeGreaterThan(ss.planets[i - 1].orbitalRadius);
     }
   });
 });

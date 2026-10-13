@@ -5,10 +5,7 @@ type GalaxyScreenProps = {
   children?: React.ReactNode;
 };
 
-export const GalaxyScreen: FunctionComponent<GalaxyScreenProps> = ({
-  seed,
-  children,
-}) => {
+export const GalaxyScreen: FunctionComponent<GalaxyScreenProps> = ({ seed, children }) => {
   return (
     <div>
       <h1>Galaxy #{seed}</h1>

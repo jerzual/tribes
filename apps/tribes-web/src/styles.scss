@@ -31,11 +31,7 @@ body {
     sans-serif;
   color: black;
   background: rgb(232, 255, 173); // e8ffad
-  background: linear-gradient(
-    50deg,
-    rgba(232, 255, 173, 1) 0%,
-    rgba(152, 201, 201, 1) 100%
-  );
+  background: linear-gradient(50deg, rgba(232, 255, 173, 1) 0%, rgba(152, 201, 201, 1) 100%);
 }
 
 a {

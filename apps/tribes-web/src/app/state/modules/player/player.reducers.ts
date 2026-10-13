@@ -1,9 +1,6 @@
 import { nanoid } from 'nanoid';
-import {
-  FETCH_PLAYER,
-  FETCH_PLAYER_SUCCESS,
-  FETCH_PLAYER_FAILURE,
-} from './player.actions';
+
+import { FETCH_PLAYER, FETCH_PLAYER_SUCCESS, FETCH_PLAYER_FAILURE } from './player.actions';
 
 /**
  * Reducer for player state.

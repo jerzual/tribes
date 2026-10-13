@@ -40,8 +40,7 @@ export function buildPlanet(seed: string, orbitalIndex: number): PlanetModel {
   const name = rng.deriveChildSeed();
 
   const orbitalRadius =
-    MIN_ORBITAL_RADIUS +
-    ((MAX_ORBITAL_RADIUS - MIN_ORBITAL_RADIUS) * (orbitalIndex + 1)) / 8;
+    MIN_ORBITAL_RADIUS + ((MAX_ORBITAL_RADIUS - MIN_ORBITAL_RADIUS) * (orbitalIndex + 1)) / 8;
 
   return {
     seed,

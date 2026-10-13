@@ -1,7 +1,7 @@
-import React from 'react';
 import { render } from '@testing-library/react';
-
 import { mockResizeObserver } from 'jsdom-testing-mocks';
+import React from 'react';
+
 import { Board } from './board.container';
 
 mockResizeObserver();
