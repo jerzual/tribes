@@ -1,13 +1,13 @@
-FROM node:24-alpine AS base
+FROM node:26-alpine AS base
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
-RUN corepack enable
+RUN npm install -g corepack@latest && corepack enable
 
 RUN mkdir -p /app
 RUN chown 1000:1000 /app
 
 COPY pnpm-lock.yaml /app/
-COPY package.json /app/
+COPY package.json pnpm-workspace.yaml /app/
 
 WORKDIR /app
 
